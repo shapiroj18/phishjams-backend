@@ -6,6 +6,7 @@ Help() {
     echo
     echo "Syntax: source start-dev-env.sh [-d|p]"
     echo "options:"
+    echo "l         Export local variables."
     echo "d         Export development variables."
     echo "p         Export production variables."
 }
@@ -18,6 +19,12 @@ do
         -h|--help)
         Help
         return
+        ;;
+        -l|--local)
+        # pull environmental variables for config. -s denotes as shell format. will require login if you aren't logged in to cli.
+        # sed replaces "'" with nothing
+        export APP_SETTINGS="config.DevelopmentConfig"
+        shift
         ;;
         -d|--dev)
         # pull environmental variables for config. -s denotes as shell format. will require login if you aren't logged in to cli.
