@@ -4,6 +4,9 @@
 # sed replaces "'" with nothing
 export `heroku config -s --app=phish-telegram-bot | sed 's/'"'"'//g'`
 
+# export other required variables
+export FLASK_APP=phish_bot.py
+
 # set up venv
 {
 if [[ "$VIRTUAL_ENV" != "" ]]
