@@ -4,11 +4,11 @@
 Help() {
     echo "Initialize your Phish Bot Environment"
     echo
-    echo "Syntax: source start-dev-env.sh [-d|p]"
+    echo "Syntax: source start-dev-env.sh [-l|d|p]"
     echo "options:"
-    echo "l         Export local variables."
-    echo "d         Export development variables."
-    echo "p         Export production variables."
+    echo "-l|--local       Export local variables."
+    echo "-d|--dev         Export development variables."
+    echo "-p|--prod        Export production variables."
 }
 
 
@@ -24,6 +24,7 @@ do
         # pull environmental variables for config. -s denotes as shell format. will require login if you aren't logged in to cli.
         # sed replaces "'" with nothing
         export APP_SETTINGS="config.DevelopmentConfig"
+        export DATABASE_URL="postgresql:///phishbot_dev"
         shift
         ;;
         -d|--dev)
