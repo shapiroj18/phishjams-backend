@@ -8,7 +8,7 @@ app.config.from_object(os.environ.get("APP_SETTINGS"))
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from models import result
+from models import Subscribers
 
 
 @app.route("/")
