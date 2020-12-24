@@ -42,6 +42,7 @@ To Do:
     * Create `start.logging()` for with dev bot for dev env
     * Create `set_webhook()` for CI/CD with full bot for when I push
 15. CLI?
+16. Figure out how to automate `flask db upgrade`
 
 
 
