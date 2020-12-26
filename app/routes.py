@@ -25,7 +25,7 @@ def emailtest():
             subject="Phish Test",
             sender=app.config.get("MAIL_USERNAME"),
             recipients=["shapiroj18@gmail.com"],
-            body="Show Link (Phish.in)", url=f"https://phish.in/{date}",
+            body=f"Show Link (Phish.in): https://phish.in/{date}",
         )
         mail.send(msg)
 

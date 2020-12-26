@@ -1,7 +1,7 @@
 import os
 import json
 import random
-import httpx
+import requests
 
 api_key = os.environ.get("PHISHNET_API_KEY")
 
