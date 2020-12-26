@@ -2,8 +2,8 @@ from app import app, mail
 from flask_mail import Mail, Message
 from app import phishnet_api, phishin_api
 
-phishnet_api = PhishNetAPI()
-phishin_api = PhishINAPI()
+phishnet_api = phishnet_api.PhishNetAPI()
+phishin_api = phishin_api.PhishINAPI()
 
 
 @app.route("/")
