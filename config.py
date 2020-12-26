@@ -8,7 +8,7 @@ class Config(object):
     TESTING = False
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
@@ -17,6 +17,7 @@ class Config(object):
 
 class ProductionConfig(Config):
     DEBUG = False
+
 
 class StagingConfig(Config):
     DEBUG = False
