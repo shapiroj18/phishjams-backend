@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import httpx
 
 api_key = os.environ.get("PHISHIN_API_KEY")
 
@@ -16,7 +17,7 @@ class PhishINAPI:
 
         payload = {}
 
-        response = requests.get(url=phishin_endpoint, headers=headers, params=payload)
+        response = httpx.get(url=phishin_endpoint, headers=headers, params=payload)
 
         return response.json()
 

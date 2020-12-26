@@ -2,6 +2,7 @@ import os
 import json
 import random
 import requests
+import httpx
 
 api_key = os.environ.get("PHISHNET_API_KEY")
 
@@ -15,7 +16,7 @@ class PhishNetAPI:
 
         payload = {"apikey": api_key}
 
-        response = requests.get(url=phishnet_endpoint, params=payload)
+        response = httpx.get(url=phishnet_endpoint, params=payload)
 
         return response
 
@@ -26,7 +27,7 @@ class PhishNetAPI:
             "apikey": api_key,
         }
 
-        response = requests.get(url=phishnet_endpoint, params=payload)
+        response = httpx.get(url=phishnet_endpoint, params=payload)
 
         return response.json()
 
@@ -34,7 +35,7 @@ class PhishNetAPI:
         phishnet_endpoint = "https://api.phish.net/v3/jamcharts/get"
         payload = {"apikey": api_key, "songid": songid}
 
-        response = requests.get(url=phishnet_endpoint, params=payload)
+        response = httpx.get(url=phishnet_endpoint, params=payload)
 
         return response.json()
 
@@ -65,6 +66,6 @@ class PhishNetAPI:
 
         payload = {"apikey": api_key, "showdate": date}
 
-        response = requests.get(url=phishnet_endpoint, params=payload)
+        response = httpx.get(url=phishnet_endpoint, params=payload)
 
         return response.json()["response"]["data"][0]["url"]
