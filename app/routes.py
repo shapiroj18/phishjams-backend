@@ -1,5 +1,9 @@
 from app import app, mail
 from flask_mail import Mail, Message
+from app import phishnet_api, phishin_api
+
+phishnet_api = PhishNetAPI()
+phishin_api = PhishINAPI()
 
 
 @app.route("/")
@@ -14,13 +18,14 @@ def helloname(name):
 
 @app.route("/emailtest")
 def emailtest():
+    song, date = phishnet_api.get_random_jamchart()
 
     with app.app_context():
         msg = Message(
-            subject="Phishing Test",
+            subject="Phish Test",
             sender=app.config.get("MAIL_USERNAME"),
             recipients=["shapiroj18@gmail.com"],
-            body="Phish Jams Go Here",
+            body="Show Link (Phish.in)", url=f"https://phish.in/{date}",
         )
         mail.send(msg)
 

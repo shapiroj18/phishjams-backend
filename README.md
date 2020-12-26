@@ -29,21 +29,28 @@ To Do:
 3. Make date format acceptance broader than just YYYY-MM-DD
 4. Pytest
 5. Mypy
-6. Black
-7. Phish Trivia Game!
-8. Create md file for commands
-9.  Automatically send mjm when it gets posted
-10. Get email updates
-11. CI/CD
-12. See if pushing new build removes all previous jobs
-13. Httpx instead of Requests
-14. Build Dev Env
+6. Phish Trivia Game!
+7. Create md file for commands
+8.  Automatically send mjm when it gets posted
+9.  Get email updates
+10. CI/CD
+11. See if pushing new build removes all previous jobs
+12. Httpx instead of Requests
+13. Build Dev Env
     * Create all functionality except the run in one file
     * Create `start.logging()` for with dev bot for dev env
     * Create `set_webhook()` for CI/CD with full bot for when I push
-15. CLI?
-16. Figure out how to automate `flask db upgrade`
-
+14. Figure out how to automate `flask db upgrade`
+15. Blueprints
+16. Celery
+17. Go through flask tutorial on flask website
+18. Tests
+19. Readme or badges for technologies (diagram?):
+    - heroku
+    - dotenv
+    - Postgres
+    - celery/rabbitmq
+20. Get local and dev phishnet and phishin keys
 
 
 Flask App
