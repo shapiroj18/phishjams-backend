@@ -13,13 +13,15 @@ class PhishINAPI:
     def get_show_on_date(self, date):
         phishin_endpoint = f"http://phish.in/api/v1/show-on-date/:{date}.json"
 
-        headers = {"Authorization": f"Bearer {api_key}"}
+        with httpx.Client() as client:
 
-        payload = {}
+            headers = {"Authorization": f"Bearer {api_key}"}
 
-        response = httpx.get(url=phishin_endpoint, headers=headers, params=payload)
+            payload = {}
 
-        return response.json()
+            response = httpx.get(url=phishin_endpoint, headers=headers, params=payload)
+
+            return response.json()
 
     def get_song_url(self, song, date):
 

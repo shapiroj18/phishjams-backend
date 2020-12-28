@@ -14,30 +14,34 @@ class PhishNetAPI:
     def get_root_endpoint(self):
         phishnet_endpoint = "https://api.phish.net/v3/"
 
-        payload = {"apikey": api_key}
+        with httpx.Client() as client:
+            payload = {"apikey": api_key}
+            response = client.get(url=phishnet_endpoint, params=payload)
 
-        response = httpx.get(url=phishnet_endpoint, params=payload)
-
-        return response
+            return response
 
     def get_all_jamcharts(self):
         phishnet_endpoint = "https://api.phish.net/v3/jamcharts/all"
 
-        payload = {
-            "apikey": api_key,
-        }
+        with httpx.Client() as client:
 
-        response = httpx.get(url=phishnet_endpoint, params=payload)
+            payload = {
+                "apikey": api_key,
+            }
 
-        return response.json()
+            response = client.get(url=phishnet_endpoint, params=payload)
+
+            return response.json()
 
     def get_one_jamchart(self, songid):
         phishnet_endpoint = "https://api.phish.net/v3/jamcharts/get"
-        payload = {"apikey": api_key, "songid": songid}
 
-        response = httpx.get(url=phishnet_endpoint, params=payload)
+        with httpx.Client() as client:
+            payload = {"apikey": api_key, "songid": songid}
 
-        return response.json()
+            response = client.get(url=phishnet_endpoint, params=payload)
+
+            return response.json()
 
     def get_jamchart_song_ids(self):
         response = self.get_all_jamcharts()
@@ -64,8 +68,10 @@ class PhishNetAPI:
     def get_show_url(self, date):
         phishnet_endpoint = "https://api.phish.net/v3//setlists/get"
 
-        payload = {"apikey": api_key, "showdate": date}
+        with httpx.Client() as client:
 
-        response = httpx.get(url=phishnet_endpoint, params=payload)
+            payload = {"apikey": api_key, "showdate": date}
 
-        return response.json()["response"]["data"][0]["url"]
+            response = client.get(url=phishnet_endpoint, params=payload)
+
+            return response.json()["response"]["data"][0]["url"]
