@@ -1,6 +1,6 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-# Phish Telegram Bot
+# Phish Bot
 
 The bot is called `@gone_phishing_bot`
 
@@ -43,14 +43,13 @@ To Do:
 14. Figure out how to automate `flask db upgrade`
 15. Blueprints
 16. Celery
-17. Go through flask tutorial on flask website
-18. Tests
-19. Readme or badges for technologies (diagram?):
+17. Tests and incorporate into github actions
+18. Readme or badges for technologies (diagram?):
     - heroku
     - dotenv
     - Postgres
     - celery/rabbitmq
-20. Get local and dev phishnet and phishin keys
+19. Get local and dev phishin keys
 
 
 Flask App
