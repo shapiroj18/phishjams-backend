@@ -29,7 +29,7 @@ def emailtest():
 
     with app.app_context():
         msg = Message(
-            subject="Phish Test",
+            subject="Daily Phish Jam",
             sender=app.config.get("MAIL_USERNAME"),
             recipients=["shapiroj18@gmail.com"],
         )
@@ -42,4 +42,4 @@ def emailtest():
             phishnet_url=phishnet_url,
         )
         mail.send(msg)
-    return "Mail Sent"
+    return "Mail sent"
