@@ -13,7 +13,7 @@ def hello():
     return "Hello World!"
 
 
-@app.route("/<name>")
+@app.route("/radio")
 def helloname(name):
     return f"Hello, {name}"
 
