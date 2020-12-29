@@ -1,8 +1,9 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+
 # Phish Bot
 
-The bot is called `@gone_phishing_bot`
+The bot is called `@gone_phishing_bot` on Telegram
 
 Deployed at `https://phish-telegram-bot.herokuapp.com/`
 
@@ -32,35 +33,21 @@ To Do:
 6. Phish Trivia Game!
 7. Create md file for commands
 8.  Automatically send mjm when it gets posted
-9.  Get email updates
-10. CI/CD
-11. See if pushing new build removes all previous jobs
-12. Httpx instead of Requests
-13. Build Dev Env
+9.  CI/CD
+10. See if pushing new build removes all previous jobs
+11. Httpx instead of Requests
+12. Build Dev Env
     * Create all functionality except the run in one file
     * Create `start.logging()` for with dev bot for dev env
     * Create `set_webhook()` for CI/CD with full bot for when I push
-14. Figure out how to automate `flask db upgrade`
-15. Blueprints
-16. Celery
-17. Tests and incorporate into github actions
-18. Readme or badges for technologies (diagram?):
+13. Figure out how to automate `flask db upgrade`
+14. Blueprints
+15. Celery
+16. Tests and incorporate into github actions
+17. Readme or badges for technologies (diagram?):
     - heroku
     - dotenv
     - Postgres
     - celery/rabbitmq
-19. Get local and dev phishin keys
-
-
-Flask App
-Dev / Prod
-- Local Development (localhost with dev variables - twilio dev number)
-- GitHub - (main and stage branch) (push to two diff heroku apps)
-- Heroku App (main app and stage app) (heroku postgres for each prod and stage) (pipelines are a good idea)
-- Twilio - (main number and dev number and local number)
-Flask Architecture
-- Views to connect to telegram
-- Views to connect to twilio
-- Database
-- Config.py / .env file: local, stage, prod
-- Look up what another website structured flask or how Django does it
+18. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
+19. Dockerize
