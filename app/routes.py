@@ -21,7 +21,7 @@ def radio():
 
 @app.route("/process/<name>")
 def process(name):
-    testing.reverse.delay(name)
+    timed_functions.reverse.delay(name)
     return "Async sent"
 
 
