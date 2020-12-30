@@ -43,12 +43,11 @@ To Do:
     * Create `set_webhook()` for CI/CD with full bot for when I push
 13. Figure out how to automate `flask db upgrade`
 14. Blueprints
-15. Celery
-16. Tests and incorporate into github actions
-17. Readme or badges for technologies (diagram?):
+15. Tests and incorporate into github actions
+16. Readme or badges for technologies (diagram?):
     - heroku
     - dotenv
     - Postgres
     - celery/rabbitmq
-18. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
-19. Dockerize
+17. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
+18. Dockerize
