@@ -21,6 +21,8 @@ do
         return
         ;;
         -l|--local)
+        export CELERY_BROKER_URL=redis://localhost:6379
+        export CELERY_BROKER_URL=redis://localhost:6379
         echo "Local environmental variables loaded from .env file"
         shift
         ;;

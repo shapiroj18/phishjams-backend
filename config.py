@@ -13,6 +13,8 @@ class Config(object):
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    CELERY_BACKEND = os.environ.get("CELERY_BACKEND")
+    CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
 

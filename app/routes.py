@@ -1,5 +1,6 @@
 import datetime
 from app import app, mail
+from app.tasks import timed_functions
 from flask import render_template, url_for
 from flask_mail import Mail, Message
 from app import phishnet_api, phishin_api
@@ -10,12 +11,18 @@ phishin_api = phishin_api.PhishINAPI()
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return "Listen to the Japan 2000 Tour"
 
 
 @app.route("/radio")
-def helloname(name):
-    return f"Hello, {name}"
+def radio():
+    return f"Phish Radio"
+
+
+@app.route("/process/<name>")
+def process(name):
+    testing.reverse.delay(name)
+    return "Async sent"
 
 
 @app.route("/emailtest")
