@@ -4,6 +4,7 @@ instance/
 bin
 */pyvenv.cfg
 .vscode/
+dump.rdb
 
 # .gitignore template below from - https://github.com/github/gitignore/blob/master/Python.gitignore
 

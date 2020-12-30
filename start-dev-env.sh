@@ -21,11 +21,9 @@ do
         return
         ;;
         -l|--local)
-        # pull environmental variables for config. -s denotes as shell format. will require login if you aren't logged in to cli.
-        # sed replaces "'" with nothing
-        export FLASK_APP="phish_bot.py"
-        export APP_SETTINGS="config.DevelopmentConfig"
-        export DATABASE_URL="postgresql:///phishbot_dev"
+        export CELERY_BROKER_URL=redis://localhost:6379
+        export CELERY_BROKER_URL=redis://localhost:6379
+        echo "Local environmental variables loaded from .env file"
         shift
         ;;
         -d|--dev)

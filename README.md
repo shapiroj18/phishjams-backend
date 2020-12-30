@@ -1,8 +1,9 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-# Phish Telegram Bot
 
-The bot is called `@gone_phishing_bot`
+# Phish Bot
+
+The bot is called `@gone_phishing_bot` on Telegram
 
 Deployed at `https://phish-telegram-bot.herokuapp.com/`
 
@@ -15,6 +16,7 @@ Environmental variables are stored as [heroku config vars](https://devcenter.her
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
 * Run `source start-dev-env.sh` to start virtual environment, log in to heroku and store local env variables. Include a Phishy surprise with `-p` or `--phish`.
+* Start celery locally with `celery -A app.tasks.celery worker --loglevel=INFO` once you have `brew install redis` and started `redis-server`
 
 The environmental variables stored are:
 1. BOT_TOKEN=`bot_token` (token for `@gone_phishing_bot` from BotFather)
@@ -29,32 +31,23 @@ To Do:
 3. Make date format acceptance broader than just YYYY-MM-DD
 4. Pytest
 5. Mypy
-6. Black
-7. Phish Trivia Game!
-8. Create md file for commands
-9.  Automatically send mjm when it gets posted
-10. Get email updates
-11. CI/CD
-12. See if pushing new build removes all previous jobs
-13. Httpx instead of Requests
-14. Build Dev Env
+6. Phish Trivia Game!
+7. Create md file for commands
+8.  Automatically send mjm when it gets posted
+9.  CI/CD
+10. See if pushing new build removes all previous jobs
+11. Httpx instead of Requests
+12. Build Dev Env
     * Create all functionality except the run in one file
     * Create `start.logging()` for with dev bot for dev env
     * Create `set_webhook()` for CI/CD with full bot for when I push
-15. CLI?
-16. Figure out how to automate `flask db upgrade`
-
-
-
-Flask App
-Dev / Prod
-- Local Development (localhost with dev variables - twilio dev number)
-- GitHub - (main and stage branch) (push to two diff heroku apps)
-- Heroku App (main app and stage app) (heroku postgres for each prod and stage) (pipelines are a good idea)
-- Twilio - (main number and dev number and local number)
-Flask Architecture
-- Views to connect to telegram
-- Views to connect to twilio
-- Database
-- Config.py / .env file: local, stage, prod
-- Look up what another website structured flask or how Django does it
+13. Figure out how to automate `flask db upgrade`
+14. Blueprints
+15. Tests and incorporate into github actions
+16. Readme or badges for technologies (diagram?):
+    - heroku
+    - dotenv
+    - Postgres
+    - celery/rabbitmq
+17. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
+18. Dockerize
