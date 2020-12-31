@@ -6,8 +6,7 @@ from sqlalchemy.dialects.postgresql import JSON
 class Subscribers(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(60), index=True)
-    last_name = db.Column(db.String(60), index=True)
+    email = db.Column(db.String(60))
     subscribed = db.Column(db.Boolean)
     platform = db.Column(db.String(60))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)

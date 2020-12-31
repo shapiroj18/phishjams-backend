@@ -21,6 +21,7 @@ Technologies:
 * Autoenv
 * Flask-Mail
 * Flask-Migrate
+* Ngrok for local testing
 
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.

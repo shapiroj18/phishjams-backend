@@ -1,12 +1,13 @@
-import datetime
-from app import app, mail
-from app.tasks import timed_functions
-from flask import render_template, url_for
-from flask_mail import Mail, Message
-from app import phishnet_api, phishin_api
+import re
 
-phishnet_api = phishnet_api.PhishNetAPI()
-phishin_api = phishin_api.PhishINAPI()
+from flask import request
+from app import app, mail, db
+from app.models import Subscribers
+from app.celery_tasks import timed_functions, send_functions
+from flask import render_template
+from flask_mail import Message
+
+from twilio.twiml.messaging_response import MessagingResponse
 
 
 @app.route("/")
@@ -27,26 +28,42 @@ def process(name):
 
 @app.route("/emailtest")
 def emailtest():
-    song, date = phishnet_api.get_random_jamchart()
-    jam_url = phishin_api.get_song_url(song=song, date=date)
-    relisten_formatted_date = datetime.datetime.strptime(date, "%Y-%m-%d").strftime(
-        "%Y/%m/%d"
-    )
-    phishnet_url = phishnet_api.get_show_url(date)
-
-    with app.app_context():
-        msg = Message(
-            subject="Daily Phish Jam",
-            sender=app.config.get("MAIL_USERNAME"),
-            recipients=["shapiroj18@gmail.com"],
-        )
-        msg.html = render_template(
-            "random_jam_email.html",
-            song=song,
-            date=date,
-            jam_url=jam_url,
-            relisten_formatted_date=relisten_formatted_date,
-            phishnet_url=phishnet_url,
-        )
-        mail.send(msg)
+    send_functions.daily_email_sends()
     return "Mail sent"
+
+
+@app.route("/bot", methods=["POST"])
+def bot():
+    twilio_post = request.values
+    json = twilio_post.to_dict(flat=False)
+
+    incoming_message = request.values.get("Body").lower()
+    resp = MessagingResponse()
+    msg = resp.message()
+    responded = False
+
+    if bool(re.match(r"\bsubscribe", incoming_message)):
+        email = re.findall("\S+@\S+", incoming_message)[0]
+        subscriber = Subscribers(
+            email=email, subscribed=True, platform="Twilio", json_response=json
+        )
+        db.session.add(subscriber)
+        db.session.commit()
+        msg.body(f"\U0001F420 {email} has been added for daily random jam emails!")
+        responded = True
+
+    elif bool(re.match(r"\bunsubscribe", incoming_message)):
+        email = re.findall("\S+@\S+", incoming_message)[0]
+
+        subs = Subscribers.query.filter_by(email=email)
+        for sub in subs:
+            sub.subscribed = False
+
+        db.session.commit()
+
+        msg.body(f"Your email {email} has been unsubscribed from daily jam emails.")
+        responded = True
+    elif not responded:
+        msg.body('Not a valid message. Send "subscribe <email>" or "unsubscribe <email>"')
+
+    return str(resp)
