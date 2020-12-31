@@ -25,7 +25,7 @@ def email_send():
         msg = Message(
             subject="Daily Phish Jam",
             sender=app.config.get("MAIL_USERNAME"),
-            recipients=["shapiroj18@gmail.com", "znusbaum@u.rochester.edu"],
+            recipients=["shapiroj18@gmail.com"],
         )
         msg.html = render_template(
             "random_jam_email.html",
