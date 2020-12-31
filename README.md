@@ -26,8 +26,7 @@ Technologies:
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
 * Run `source start-dev-env.sh` to start virtual environment, log in to heroku and store local env variables.
-* Start celery locally with `celery -A app.celery_tasks.celery worker --loglevel=INFO` once you have `brew install redis` and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`)
-* Start celery beat locally with `celery -A app.celery_tasks.celery beat --loglevel=INFO`
+* Start celery locally with `celery -A app.celery_tasks.celery worker --loglevel=INFO` once you have `brew install redis` and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`). Start celery beat locally with `celery -A app.celery_tasks.celery beat --loglevel=INFO`. You can start both the celery worker and beat with `celery -A app.celery_tasks.celery beat --loglevel=INFO`.
 * Postgres can be installed and run via [this page](https://wiki.postgresql.org/wiki/Homebrew). Make sure your databases are defined in your `.env`.
   * `psql postgres`
   * `CREATE DATABASE phishbot_local_dev;`
