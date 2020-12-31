@@ -28,7 +28,7 @@ celery = make_celery(app=app)
 celery_beat_schedule = {
     "daily_email_send": {
         "task": "daily_email_send",
-        "schedule": crontab(minute=50, hour=12),
+        "schedule": crontab(minute=59, hour=12),
     }
 }
 
