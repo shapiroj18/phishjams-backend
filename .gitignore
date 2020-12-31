@@ -7,6 +7,7 @@ bin
 dump.rdb
 celerybeat*
 logfile*
+celerybeat-schedule.db
 
 # .gitignore template below from - https://github.com/github/gitignore/blob/master/Python.gitignore
 
