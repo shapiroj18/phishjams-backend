@@ -35,7 +35,9 @@ def email_send():
             relisten_formatted_date=relisten_formatted_date,
             phishnet_url=phishnet_url,
         )
-        return mail.send(msg)
+        mail.send(msg)
+
+    return "Mail sent"
 
 
 @celery.task(name="daily_email_send")

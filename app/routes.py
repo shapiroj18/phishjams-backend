@@ -44,11 +44,19 @@ def bot():
 
     if bool(re.match(r"\bsubscribe", incoming_message)):
         email = re.findall("\S+@\S+", incoming_message)[0]
-        subscriber = Subscribers(
-            email=email, subscribed=True, platform="Twilio", json_response=json
-        )
-        db.session.add(subscriber)
-        db.session.commit()
+
+        sub = Subscribers.query.filter_by(email=email).first()
+        if sub:
+            sub.subscribed = True
+            db.session.commit()
+
+        else:
+            subscriber = Subscribers(
+                email=email, subscribed=True, platform="Twilio", json_response=json
+            )
+            db.session.add(subscriber)
+            db.session.commit()
+
         msg.body(f"\U0001F420 {email} has been added for daily random jam emails!")
         responded = True
 

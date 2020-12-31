@@ -25,8 +25,20 @@ Technologies:
 
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
-* Run `source start-dev-env.sh` to start virtual environment, log in to heroku and store local env variables. Include a Phishy surprise with `-p` or `--phish`.
-* Start celery locally with `celery -A app.tasks.celery worker --loglevel=INFO` once you have `brew install redis` and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`)
+* Run `source start-dev-env.sh` to start virtual environment, log in to heroku and store local env variables.
+* Start celery locally with `celery -A app.celery_tasks.celery worker --loglevel=INFO` once you have `brew install redis` and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`)
+* Start celery beat locally with `celery -A app.celery_tasks.celery beat --loglevel=INFO`
+* Postgres can be installed and run via [this page](https://wiki.postgresql.org/wiki/Homebrew). Make sure your databases are defined in your `.env`.
+  * `psql postgres`
+  * `CREATE DATABASE phishbot_local_dev;`
+  * `\c phishbot_local_dev`
+  * `\du` to list users
+  * `ALTER USER <username> WITH PASSWORD '<password>';`
+  * Connect to postgres with host: `localhost`, port: `5432`, database: `phishbot_local_dev`, username: `username` and password: `password`
+  * See tables with `\dt`
+  * Add `DATABASE_URL=postgresql:///phishbot_local_dev` to your `.env`
+  * `flask db upgrade` to update database with flask models. If this isn't working make sure your `.env` is being imported via `dotenv`.
+* You need to start `ngrok` for a local environment. Download from the [website](https://ngrok.com/download) and follow their instructions for getting started. Then run `ngrok http 5000` and copy and paste the https url as a webhook to Twilio, etc (make sure route is included in webhook url)
 
 The environmental variables stored are:
 1. BOT_TOKEN=`bot_token` (token for `@gone_phishing_bot` from BotFather)

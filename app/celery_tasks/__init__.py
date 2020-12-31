@@ -26,11 +26,14 @@ celery = make_celery(app=app)
 
 # Add periodic tasks
 celery_beat_schedule = {
-    "daily_email_send": {"task": "email_send", "schedule": crontab(minute=22, hour=0)}
+    "daily_email_send": {
+        "task": "daily_email_send",
+        "schedule": crontab(minute=0, hour=12),
+    }
 }
 
 celery.conf.update(
-    timezone="UTC",
+    timezone="America/New_York",
     task_serializer="json",
     accept_content=["json"],
     result_serializer="json",

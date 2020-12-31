@@ -5,6 +5,8 @@ bin
 */pyvenv.cfg
 .vscode/
 dump.rdb
+celerybeat*
+logfile*
 
 # .gitignore template below from - https://github.com/github/gitignore/blob/master/Python.gitignore
 
