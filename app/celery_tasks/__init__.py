@@ -5,7 +5,7 @@ from app import app
 
 
 def make_celery(app):
-    
+
     celery = Celery(
         app.import_name,
         backend=app.config["CELERY_BACKEND"],
@@ -21,14 +21,12 @@ def make_celery(app):
     celery.Task = ContextTask
     return celery
 
+
 celery = make_celery(app=app)
 
 # Add periodic tasks
 celery_beat_schedule = {
-    "daily_email_send": {
-        "task": "email_send",
-        "schedule": crontab(minute=22, hour=0)
-    }
+    "daily_email_send": {"task": "email_send", "schedule": crontab(minute=22, hour=0)}
 }
 
 celery.conf.update(
@@ -38,7 +36,8 @@ celery.conf.update(
     result_serializer="json",
     beat_schedule=celery_beat_schedule,
 )
-    
+
+
 @celery.task
 def test(arg):
     print(arg)

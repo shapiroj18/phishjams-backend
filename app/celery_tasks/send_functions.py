@@ -13,7 +13,7 @@ phishin_api = phishin_api.PhishINAPI()
 
 
 @celery.task(name="email_send")
-def email_send():    
+def email_send():
     song, date = phishnet_api.get_random_jamchart()
     jam_url = phishin_api.get_song_url(song=song, date=date)
     relisten_formatted_date = datetime.datetime.strptime(date, "%Y-%m-%d").strftime(
@@ -37,13 +37,13 @@ def email_send():
         )
         return mail.send(msg)
 
+
 @celery.task(name="daily_email_send")
 def daily_email_sends():
-    
+
     # query all with subscribed=True
     subs = Subscribers.query.filter_by(subscribed=True)
 
-    
     song, date = phishnet_api.get_random_jamchart()
     jam_url = phishin_api.get_song_url(song=song, date=date)
     relisten_formatted_date = datetime.datetime.strptime(date, "%Y-%m-%d").strftime(
@@ -68,5 +68,5 @@ def daily_email_sends():
                     phishnet_url=phishnet_url,
                 )
                 conn.send(msg)
-                
-    return 'Mail sent'
+
+    return "Mail sent"

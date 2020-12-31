@@ -64,6 +64,8 @@ def bot():
         msg.body(f"Your email {email} has been unsubscribed from daily jam emails.")
         responded = True
     elif not responded:
-        msg.body('Not a valid message. Send "subscribe <email>" or "unsubscribe <email>"')
+        msg.body(
+            'Not a valid message. Send "subscribe <email>" or "unsubscribe <email>"'
+        )
 
     return str(resp)
