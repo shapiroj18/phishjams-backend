@@ -3,8 +3,6 @@ import sys
 import tempfile
 import pytest
 
-sys.path.append("../")
-
 from app import app
 
 
@@ -20,3 +18,7 @@ def client():
 
     os.close(db_fd)
     os.unlink(app.app.config["DATABASE"])
+
+
+def test_equality():
+    assert 1 == 1
