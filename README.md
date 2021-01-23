@@ -48,27 +48,26 @@ The environmental variables stored are:
 
 To Do:
 1. Make sure json responses for required functions are not more than one page with if/else
-2. Set option for only soundboards?
-3. Make date format acceptance broader than just YYYY-MM-DD
-4. Pytest
-5. Mypy
-6. Phish Trivia Game!
-7. Create md file for commands
-8.  Automatically send mjm when it gets posted
-9.  CI/CD
-10. See if pushing new build removes all previous jobs
-11. Httpx instead of Requests
-12. Build Dev Env
+2. Pytest
+3. Mypy
+4. Phish Trivia Game
+5.  Automatically send mjm when it gets posted
+6.  CI/CD
+7.  See if pushing new build removes all previous jobs
+8.  Build Dev Env
     * Create all functionality except the run in one file
     * Create `start.logging()` for with dev bot for dev env
     * Create `set_webhook()` for CI/CD with full bot for when I push
-13. Figure out how to automate `flask db upgrade`
-14. Blueprints
-15. Tests and incorporate into github actions
-16. Readme or badges for technologies (diagram?):
+9.  Figure out how to automate `flask db upgrade`
+10. Blueprints
+11. Tests and incorporate into github actions
+12. Readme or badges for technologies (diagram?):
     - heroku
     - dotenv
     - Postgres
     - celery/rabbitmq
-17. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
-18. Dockerize
+13. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
+14. Dockerize
+15. Create events tables (when messages are sent, when messages are received)
+16. Sponsorship messages 1/week
+17. Better unsubscribe messaging

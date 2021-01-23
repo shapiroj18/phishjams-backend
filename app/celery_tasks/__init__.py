@@ -39,9 +39,3 @@ celery.conf.update(
     result_serializer="json",
     beat_schedule=celery_beat_schedule,
 )
-
-
-@celery.task
-def test(arg):
-    print(arg)
-    return arg

@@ -20,18 +20,6 @@ def radio():
     return f"Phish Radio"
 
 
-@app.route("/process/<name>")
-def process(name):
-    timed_functions.reverse.delay(name)
-    return "Async sent"
-
-
-@app.route("/emailtest")
-def emailtest():
-    send_functions.daily_email_sends()
-    return "Mail sent"
-
-
 @app.route("/bot", methods=["POST"])
 def bot():
     twilio_post = request.values
@@ -43,7 +31,7 @@ def bot():
     responded = False
 
     if bool(re.match(r"\bsubscribe", incoming_message)):
-        email = re.findall("\S+@\S+", incoming_message)[0]
+        email = re.findall(r"\S+@\S+", incoming_message)[0]
 
         sub = Subscribers.query.filter_by(email=email).first()
         if sub:
@@ -61,7 +49,7 @@ def bot():
         responded = True
 
     elif bool(re.match(r"\bunsubscribe", incoming_message)):
-        email = re.findall("\S+@\S+", incoming_message)[0]
+        email = re.findall(r"\S+@\S+", incoming_message)[0]
 
         subs = Subscribers.query.filter_by(email=email)
         for sub in subs:
