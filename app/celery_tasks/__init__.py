@@ -29,7 +29,15 @@ celery_beat_schedule = {
     "daily_email_send": {
         "task": "daily_email_send",
         "schedule": crontab(minute=0, hour=12),
-    }
+    },
+    "support_texts": {
+        "task": "support_notifications",
+        "schedule": crontab(minute=0, hour=13, day_of_week="friday"),
+    },
+    "mjm_text": {
+        "task": "mjm_notifications",
+        "schedule": crontab(minute=0, hour=13, day_of_week="monday"),
+    },
 }
 
 celery.conf.update(

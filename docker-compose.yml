@@ -1,37 +1,54 @@
 version: "3.9"
 
 services:
-  web:
+
+  base:
     build: .
     volumes:
       - .:/usr/src/app/
+    env_file:
+      - .env
+
+  web:
+    extends:
+      service: base
     ports:
       - "5000:5000"
-    env_file:
-      - ".env"
     depends_on: 
       - redis
 
   redis:
-    env_file:
-      - ".env"
-    image: "redis:alpine"
+    image: redis
 
   celery:
-    build: .
+    extends:
+      service: base
     command: celery worker -A app.celery_tasks.celery --beat --loglevel=info
-    volumes:
-      - .:/usr/src/app/
-    env_file:
-      - ".env"
     depends_on: 
       - web
       - redis
 
   flower:  
+    extends:
+      service: base
     image: mher/flower
     command: flower --broker=redis://redis:6379/0 --port=5555
     ports:  
       - 5555:5555 
     depends_on:
       - redis
+
+  # db:
+  #   image: postgres:latest
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=app
+    
+  # migrations:
+  #   extends:
+  #     service: base
+  #   command: flask db upgrade
+  #   depends_on:
+  #     - db

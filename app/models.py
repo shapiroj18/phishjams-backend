@@ -9,8 +9,24 @@ class Subscribers(db.Model):
     email = db.Column(db.String(60))
     subscribed = db.Column(db.Boolean)
     platform = db.Column(db.String(60))
+    number_support_texts = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     json_response = db.Column(JSON)
 
     def __repr__(self):
         return f"<id {self.id}>"
+
+
+class MJMAlerts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    mjm_alerts = db.Column(db.Boolean)
+    phone_number = db.Column(db.String(60))
+    platform = db.Column(db.String(60))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    json_response = db.Column(JSON)
+
+    def __repr__(self):
+        return f"<id {self.id}>"
+
+
+# class EmailSends(db.Model):
