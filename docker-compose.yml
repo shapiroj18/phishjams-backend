@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - "5000:5000"
+    env_file:
+      - ".env"
+    depends_on: 
+      - redis
+
+  redis:
+    env_file:
+      - ".env"
+    image: "redis:alpine"
+
+  celery:
+    build: .
+    command: celery worker -A app.celery_tasks.celery --beat --loglevel=info
+    volumes:
+      - .:/usr/src/app/
+    env_file:
+      - ".env"
+    depends_on: 
+      - web
+      - redis
+
+  flower:  
+    image: mher/flower
+    command: flower --broker=redis://redis:6379/0 --port=5555
+    ports:  
+      - 5555:5555 
+    depends_on:
+      - redis

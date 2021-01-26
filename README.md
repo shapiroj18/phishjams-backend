@@ -26,7 +26,10 @@ Technologies:
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
 * Run `source start-dev-env.sh` to start virtual environment, log in to heroku and store local env variables.
-* Start celery locally with `celery -A app.celery_tasks.celery worker --loglevel=INFO` once you have `brew install redis` and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`). Start celery beat locally with `celery -A app.celery_tasks.celery beat --loglevel=INFO`. You can start both the celery worker and beat with `celery -A app.celery_tasks.celery beat --loglevel=INFO`.
+* Run `docker-compose up --build` to start the web server, celery, flower and redis.
+  * Access web server at `http://0.0.0.0:5000/`
+  * Access flower at `http://localhost:5555/`
+* Start celery locally with `celery -A app.celery_tasks.celery worker --loglevel=INFO` once you have installed redis (`brew install redis`) and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`). Start celery beat locally with `celery -A app.celery_tasks.celery beat --loglevel=INFO`. You can start both the celery worker and beat with `celery -A app.celery_tasks.celery beat --loglevel=INFO`.
 * Postgres can be installed and run via [this page](https://wiki.postgresql.org/wiki/Homebrew). Make sure your databases are defined in your `.env`.
   * `psql postgres`
   * `CREATE DATABASE phishbot_local_dev;`
@@ -52,22 +55,18 @@ To Do:
 3. Mypy
 4. Phish Trivia Game
 5.  Automatically send mjm when it gets posted
-6.  CI/CD
-7.  See if pushing new build removes all previous jobs
-8.  Build Dev Env
+6.  Build Dev Env
     * Create all functionality except the run in one file
     * Create `start.logging()` for with dev bot for dev env
     * Create `set_webhook()` for CI/CD with full bot for when I push
-9.  Figure out how to automate `flask db upgrade`
-10. Blueprints
-11. Tests and incorporate into github actions
-12. Readme or badges for technologies (diagram?):
+7.  Figure out how to automate `flask db upgrade`
+8.  Tests and incorporate into github actions
+9.  Readme or badges for technologies (diagram?):
     - heroku
     - dotenv
     - Postgres
     - celery/rabbitmq
-13. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
-14. Dockerize
-15. Create events tables (when messages are sent, when messages are received)
-16. Sponsorship messages 1/week
-17. Better unsubscribe messaging
+10. Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
+11. Create events tables (when messages are sent, when messages are received)
+12. Sponsorship messages 1/week
+13. Better unsubscribe messaging

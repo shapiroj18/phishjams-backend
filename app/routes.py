@@ -3,7 +3,7 @@ import re
 from flask import request
 from app import app, mail, db
 from app.models import Subscribers
-from app.celery_tasks import timed_functions, send_functions
+from app.celery_tasks import send_functions
 from flask import render_template
 from flask_mail import Message
 
@@ -19,6 +19,10 @@ def hello():
 def radio():
     return f"Phish Radio"
 
+@app.route("/email")
+def send_mail():
+    send_functions.email_send.delay()
+    return 'Mail Sent'
 
 @app.route("/bot", methods=["POST"])
 def bot():

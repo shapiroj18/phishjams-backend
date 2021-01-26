@@ -3,6 +3,9 @@ import sys
 import tempfile
 import pytest
 
+topdir = os.path.join(os.path.dirname(__file__), "..")
+sys.path.append(topdir)
+
 from app import app
 
 
