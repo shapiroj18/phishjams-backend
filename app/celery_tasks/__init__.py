@@ -28,8 +28,16 @@ celery = make_celery(app=app)
 celery_beat_schedule = {
     "daily_email_send": {
         "task": "daily_email_send",
-        "schedule": crontab(minute=59, hour=12),
-    }
+        "schedule": crontab(minute=0, hour=12),
+    },
+    "support_texts": {
+        "task": "support_notifications",
+        "schedule": crontab(minute=0, hour=13, day_of_week="friday"),
+    },
+    "mjm_text": {
+        "task": "mjm_notifications",
+        "schedule": crontab(minute=0, hour=13, day_of_week="monday"),
+    },
 }
 
 celery.conf.update(
@@ -39,9 +47,3 @@ celery.conf.update(
     result_serializer="json",
     beat_schedule=celery_beat_schedule,
 )
-
-
-@celery.task
-def test(arg):
-    print(arg)
-    return arg
