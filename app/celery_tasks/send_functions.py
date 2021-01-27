@@ -121,7 +121,7 @@ def support_notifications():
                         "Don't worry, this is the last time you'll see this message"
                     )
                 message = client.messages.create(
-                    body=f"This Phish Bot is not cheap to maintain! If you want to support, please consider funding.\nhttps://ko-fi.com/shapiroj18\nhttps://www.patreon.com/shapiro18\n{lang_times}.",
+                    body=f"If you want to support the development of this project, please consider contributing!\nhttps://ko-fi.com/shapiroj18\nhttps://www.patreon.com/shapiro18\n{lang_times}.",
                     from_=os.environ["TWILIO_NUMBER"],
                     to=subscriber.phone_number,
                 )
