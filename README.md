@@ -5,7 +5,7 @@
 
 The bot is called `@gone_phishing_bot` on Telegram
 
-Deployed at `https://phish-telegram-bot.herokuapp.com/`
+Deployed at `https://phishjam-bot.herokuapp.com/`
 
 Commands:
 Simply type `/` into Telegram when you are chatting with the bot or read `main()` of   `app.py`

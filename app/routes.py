@@ -11,13 +11,13 @@ from twilio.twiml.messaging_response import MessagingResponse
 
 
 @app.route("/")
-def hello():
-    return "Listen to the Japan 2000 Tour"
+def index():
+    return render_template("index.html")
 
 
 @app.route("/radio")
 def radio():
-    return f"Phish Radio"
+    return render_template("radio.html")
 
 
 @app.route("/email")
