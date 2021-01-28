@@ -3,14 +3,29 @@
 
 # Phish Bot
 
-The bot is called `@gone_phishing_bot` on Telegram
+This is a bot that can send you random jams, reminders for mystery jam monday and play your favorite jams!
 
-Deployed at `https://phishjam-bot.herokuapp.com/`
+Info:
+Telegram -
+  * Prod - `@gone_phishing_bot`
+  * Dev - `@dev_gone_phishing_bot`
+  * Local - `@devlocal_gone_phishing_bot`
+
+Web App -
+  * Prod - `https://phishjam-bot.herokuapp.com/`
+  * Dev - `https://phishjam-bot-dev.herokuapp.com/`
+  * Local - Uses `ngrok` and local server (see below)
+
+Server - 
+Uses Heroku for Prod and Dev deployments. Uses [cron-job.org](https://cron-job.org/en/) to send API calls such that the server doesn't sleep with Heroku's free tier.
 
 Commands:
 Simply type `/` into Telegram when you are chatting with the bot or read `main()` of   `app.py`
 
-Notes:
+Contributing:
+Very much encouraged! Simply submit a PR or reach out to shapiroj18@gmail.com.
+
+### Notes:
 Environmental variables are stored as [heroku config vars](https://devcenter.heroku.com/articles/config-vars)
 
 Technologies:
@@ -21,7 +36,7 @@ Technologies:
 * Autoenv
 * Flask-Mail
 * Flask-Migrate
-* Ngrok for local testing
+* Ngrok
 
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
@@ -29,7 +44,6 @@ Development:
   * Start virtual environment
   * Log in to heroku
   * Store local env variables
-  * Start postgres
 * Run `docker-compose up --build` to start the web server, celery, flower and redis.
   * Access web server at `http://0.0.0.0:5000/`
   * Access flower at `http://localhost:5555/`
@@ -54,18 +68,14 @@ The environmental variables stored are:
 5. PHISHIN_API_KEY=`api_key` (API Key for Phish.in can be requested at the [contacts page](https://phish.in/contact-info) and info about the api can be found in the [api docs](https://phish.in/api-docs))
 
 To Do:
-1. Make sure json responses for required functions are not more than one page with if/else
-2. Pytest
-3. Mypy
-4. Phish Trivia Game
-5.  Automatically send mjm when it gets posted
-6.  Build Dev Env
-    * Create all functionality except the run in one file
-    * Create `start.logging()` for with dev bot for dev env
-    * Create `set_webhook()` for CI/CD with full bot for when I push
-7.  Figure out how to automate `flask db upgrade`
-8.  Tests and incorporate into github actions
-9.  Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
-10. Create events tables (when messages are sent, when messages are received)
-11. Sponsorship messages 1/week
-12. Better unsubscribe messaging
+1. Pytest
+2. Mypy
+3. Phish Trivia Game
+4. Next Phish Show (location/date)
+5.  Figure out how to automate `flask db upgrade`
+6.  Tests and incorporate into github actions
+7.  Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
+8.  Create events tables (when messages are sent, when messages are received)
+9.  Better unsubscribe messaging
+
+Find my profile on [phish.net](https://phish.net/user/harpua18)!
