@@ -34,5 +34,5 @@ def view_local_webhook_info():
 
 
 if __name__ == "__main__":
-    set_local_webhook()
+    # set_local_webhook()
     view_local_webhook_info()
