@@ -33,6 +33,7 @@ auth_key = os.environ.get("TELEGRAM_BOT_TOKEN")
 
 @app.route(f"/{auth_key}", methods=["POST"])
 def telegram_bot():
+    
     # Telegram Bot
     bot = telegram.Bot(token=auth_key)
 
