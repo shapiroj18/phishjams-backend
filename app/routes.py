@@ -50,7 +50,9 @@ def telegram_bot():
     responded = False
 
     if text == "/start":
-        bot_welcome = '\U0001F420 Welcome to the Phish Bot! Send "/features" for bot commands!'
+        bot_welcome = (
+            '\U0001F420 Welcome to the Phish Bot! Send "/features" for bot commands!'
+        )
         bot.send_message(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
 
     elif text == "/features" or text == "/help":
