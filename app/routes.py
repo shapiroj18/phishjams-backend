@@ -33,7 +33,7 @@ auth_key = os.environ.get("TELEGRAM_BOT_TOKEN")
 
 @app.route(f"/{auth_key}", methods=["POST"])
 def telegram_bot():
-    
+
     # Telegram Bot
     bot = telegram.Bot(token=auth_key)
 
@@ -50,7 +50,7 @@ def telegram_bot():
     responded = False
 
     if text == "/start":
-        bot_welcome = '\U0001F420 Welcome to the Phish Bot! Send "/features" to learn about it\'s functionality!'
+        bot_welcome = '\U0001F420 Welcome to the Phish Bot! Send "/features" for bot commands!'
         bot.send_message(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
 
     elif text == "/features" or text == "/help":
