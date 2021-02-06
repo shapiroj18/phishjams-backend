@@ -29,7 +29,7 @@ def send_mail():
     return "Mail Sent"
 
 
-@app.route(f"/{auth_key}", methods=["POST"])
+# @app.route(f"/{auth_key}", methods=["POST"])
 # def telegram_bot():
 
 #     # Telegram Bot
