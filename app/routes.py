@@ -29,8 +29,8 @@ def send_mail():
     return "Mail Sent"
 
 
-# @app.route(f"/{auth_key}", methods=["POST"])
-# def webhook_telegram():
+@app.route(f"/{auth_key}", methods=["POST"])
+# def telegram_bot():
 
 #     # Telegram Bot
 #     bot = telegram.Bot(token=auth_key)
