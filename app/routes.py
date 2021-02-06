@@ -8,8 +8,9 @@ from app.celery_tasks import send_functions
 from flask import render_template
 from flask_mail import Message
 
-import telegram
 from twilio.twiml.messaging_response import MessagingResponse
+
+auth_key = os.environ.get("BOT_TOKEN")
 
 
 @app.route("/")
@@ -28,48 +29,51 @@ def send_mail():
     return "Mail Sent"
 
 
-auth_key = os.environ.get("TELEGRAM_BOT_TOKEN")
+# @app.route(f"/{auth_key}", methods=["POST"])
+# def webhook_telegram():
 
+#     # Telegram Bot
+#     bot = telegram.Bot(token=auth_key)
 
-@app.route(f"/{auth_key}", methods=["POST"])
-def telegram_bot():
+#     update = telegram.Update.de_json(request.get_json(), bot)
+#     print(update)
 
-    # Telegram Bot
-    bot = telegram.Bot(token=auth_key)
+#     chat_id = update.message.chat.id
+#     msg_id = update.message.message_id
 
-    update = telegram.Update.de_json(request.get_json(), bot)
-    print(update)
+#     text = update.message.text.encode("utf-8").decode().lower()
 
-    chat_id = update.message.chat.id
-    msg_id = update.message.message_id
+#     responded = False
 
-    text = update.message.text.encode("utf-8").decode().lower()
+#     if text == "/start":
+#         bot_welcome = (
+#             '\U0001F420 Welcome to the Phish Bot! Send "/features" for bot commands!'
+#         )
+#         bot.send_message(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
 
-    print("received message: ", text)
+#     elif text == "/features" or text == "/help":
+#         bot_features = (
+#             "<b>You can send me messages like:</b>\n"
+#             + "/subscribe (random daily jam emails)\n"
+#             + "/unsubscribe (remove daily jam emails)\n"
+#         )
 
-    responded = False
+#         bot.send_message(
+#             chat_id=chat_id,
+#             text=bot_features,
+#             parse_mode="HTML",
+#             reply_to_message_id=msg_id,
+#         )
 
-    if text == "/start":
-        bot_welcome = (
-            '\U0001F420 Welcome to the Phish Bot! Send "/features" for bot commands!'
-        )
-        bot.send_message(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
+#     elif text == "/subscribe":
 
-    elif text == "/features" or text == "/help":
-        bot_features = (
-            "<b>You can send me messages like:</b>\n"
-            + "/subscribe (random daily jam emails)\n"
-            + "/unsubscribe (remove daily jam emails)\n"
-        )
+#         bot.send_message(
+#             chat_id=chat_id,
+#             text="Enter the email you would like to subscribe below",
+#             reply_to_message_id=msg_id,
+#         )
 
-        bot.send_message(
-            chat_id=chat_id,
-            text=bot_features,
-            parse_mode="HTML",
-            reply_to_message_id=msg_id,
-        )
-
-    return "Telegram Bot"
+#     return "Telegram Bot"
 
 
 # Twilio Bot
