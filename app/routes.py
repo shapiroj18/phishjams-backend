@@ -24,7 +24,27 @@ def radio():
 
 @app.route("/subscribe", methods = ["POST"])
 def subscribe():
-    return jsonify(message="hello good work")
+    json = request.get_json()
+    email = request.values.get("email").lower()
+    platform = request.values.get("platform").lower()
+    sub = Subscribers.query.filter_by(email=email).first()
+    if sub:
+        sub.subscribed = True
+        sub.number_support_texts = 0
+        db.session.commit()
+
+    else:
+        subscriber = Subscribers(
+            email=email,
+            subscribed=True,
+            number_support_texts=0,
+            platform=platform,
+            json_response=json,
+        )
+        db.session.add(subscriber)
+        db.session.commit()
+
+    return jsonify(message=f'{email} added successfully')
 
 
 # Twilio Bot
@@ -38,12 +58,7 @@ def bot():
     msg = resp.message()
     responded = False
 
-    if incoming_message == "features":
-        msg.body(
-            f'You can send me messages like:\n"subscribe <email>"\n"unsubscribe <email>"\n"start mjm alerts"\n"stop mjm alerts"\n"code"\nDon\'t worry, more features are coming soon!'
-        )
-
-    elif bool(re.match(r"\bsubscribe", incoming_message)):
+    if bool(re.match(r"\bsubscribe", incoming_message)):
         email = re.findall(r"\S+@\S+", incoming_message)[0]
 
         sub = Subscribers.query.filter_by(email=email).first()
