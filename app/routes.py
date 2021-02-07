@@ -1,7 +1,7 @@
 import re
 import os
 
-from flask import request
+from flask import request, jsonify
 from app import app, mail, db
 from app.models import Subscribers, MJMAlerts
 from app.celery_tasks import send_functions
@@ -22,58 +22,8 @@ def index():
 def radio():
     return render_template("radio.html")
 
-
-@app.route("/email")
-def send_mail():
-    send_functions.email_send.delay()
-    return "Mail Sent"
-
-
-# @app.route(f"/{auth_key}", methods=["POST"])
-# def telegram_bot():
-
-#     # Telegram Bot
-#     bot = telegram.Bot(token=auth_key)
-
-#     update = telegram.Update.de_json(request.get_json(), bot)
-#     print(update)
-
-#     chat_id = update.message.chat.id
-#     msg_id = update.message.message_id
-
-#     text = update.message.text.encode("utf-8").decode().lower()
-
-#     responded = False
-
-#     if text == "/start":
-#         bot_welcome = (
-#             '\U0001F420 Welcome to the Phish Bot! Send "/features" for bot commands!'
-#         )
-#         bot.send_message(chat_id=chat_id, text=bot_welcome, reply_to_message_id=msg_id)
-
-#     elif text == "/features" or text == "/help":
-#         bot_features = (
-#             "<b>You can send me messages like:</b>\n"
-#             + "/subscribe (random daily jam emails)\n"
-#             + "/unsubscribe (remove daily jam emails)\n"
-#         )
-
-#         bot.send_message(
-#             chat_id=chat_id,
-#             text=bot_features,
-#             parse_mode="HTML",
-#             reply_to_message_id=msg_id,
-#         )
-
-#     elif text == "/subscribe":
-
-#         bot.send_message(
-#             chat_id=chat_id,
-#             text="Enter the email you would like to subscribe below",
-#             reply_to_message_id=msg_id,
-#         )
-
-#     return "Telegram Bot"
+@app.route("/subscribe", methods = ["POST"])
+    return jsonify(message="hello good work")
 
 
 # Twilio Bot
