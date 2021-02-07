@@ -23,6 +23,7 @@ def radio():
     return render_template("radio.html")
 
 @app.route("/subscribe", methods = ["POST"])
+def subscribe():
     return jsonify(message="hello good work")
 
 
