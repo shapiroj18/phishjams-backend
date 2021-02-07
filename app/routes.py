@@ -46,6 +46,18 @@ def subscribe():
 
     return jsonify(message=f'{email} added successfully')
 
+@app.route("/unsubscribe", methods = ["POST"])
+def unsubscribe():
+    json = request.get_json()
+    email = request.values.get("email").lower()
+    platform = request.values.get("platform").lower()
+    subs = Subscribers.query.filter_by(email=email)
+    for sub in subs:
+        sub.subscribed = False
+    db.session.commit()
+
+    return jsonify(message=f'{email} removed successfully')
+
 
 # Twilio Bot
 @app.route("/bot", methods=["POST"])
