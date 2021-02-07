@@ -22,7 +22,8 @@ def index():
 def radio():
     return render_template("radio.html")
 
-@app.route("/subscribe", methods = ["POST"])
+
+@app.route("/subscribe", methods=["POST"])
 def subscribe():
     json = request.get_json()
     email = request.values.get("email").lower()
@@ -44,9 +45,10 @@ def subscribe():
         db.session.add(subscriber)
         db.session.commit()
 
-    return jsonify(message=f'{email} added successfully')
+    return jsonify(message=f"{email} added successfully")
 
-@app.route("/unsubscribe", methods = ["POST"])
+
+@app.route("/unsubscribe", methods=["POST"])
 def unsubscribe():
     json = request.get_json()
     email = request.values.get("email").lower()
@@ -56,7 +58,7 @@ def unsubscribe():
         sub.subscribed = False
     db.session.commit()
 
-    return jsonify(message=f'{email} removed successfully')
+    return jsonify(message=f"{email} removed successfully")
 
 
 # Twilio Bot
