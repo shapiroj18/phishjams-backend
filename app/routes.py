@@ -25,40 +25,50 @@ def radio():
 
 @app.route("/subscribe", methods=["POST"])
 def subscribe():
-    json = request.get_json()
-    email = request.values.get("email").lower()
-    platform = request.values.get("platform").lower()
-    sub = Subscribers.query.filter_by(email=email).first()
-    if sub:
-        sub.subscribed = True
-        sub.number_support_texts = 0
-        db.session.commit()
+    try:
+        json = request.get_json()
+        email = request.values.get("email").lower()
+        platform = request.values.get("platform").lower()
+        sub = Subscribers.query.filter_by(email=email).first()
+        if sub:
+            sub.subscribed = True
+            sub.number_support_texts = 0
+            db.session.commit()
 
-    else:
-        subscriber = Subscribers(
-            email=email,
-            subscribed=True,
-            number_support_texts=0,
-            platform=platform,
-            json_response=json,
-        )
-        db.session.add(subscriber)
-        db.session.commit()
+        else:
+            subscriber = Subscribers(
+                email=email,
+                subscribed=True,
+                number_support_texts=0,
+                platform=platform,
+                json_response=json,
+            )
+            db.session.add(subscriber)
+            db.session.commit()
 
-    return jsonify(message=f"{email} added successfully")
-
+        return jsonify(message=f"{email} subscribed successfully")
+    except TypeError:
+        return jsonify(message="There was an error, please try again later or reach out to shapiroj18@gmail.com")
 
 @app.route("/unsubscribe", methods=["POST"])
 def unsubscribe():
-    json = request.get_json()
-    email = request.values.get("email").lower()
-    platform = request.values.get("platform").lower()
-    subs = Subscribers.query.filter_by(email=email)
-    for sub in subs:
-        sub.subscribed = False
-    db.session.commit()
-
-    return jsonify(message=f"{email} removed successfully")
+    try: 
+        json = request.get_json()
+        email = request.values.get("email").lower()
+        platform = request.values.get("platform").lower()
+        
+        sub = Subscribers.query.filter_by(email=email).first()
+        if sub:
+            subs = Subscribers.query.filter_by(email=email)
+            for sub in subs:
+                sub.subscribed = False
+            db.session.commit()
+            return jsonify(message=f"{email} removed successfully")
+        else:
+            return jsonify(message=f"{email} did not exist in the databse")
+    except TypeError:
+        return jsonify(message="There was an error, please try again later or reach out to shapiroj18@gmail.com")
+        
 
 
 # Twilio Bot
