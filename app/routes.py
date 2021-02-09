@@ -106,40 +106,6 @@ def bot():
     msg = resp.message()
     responded = False
 
-    # if bool(re.match(r"\bsubscribe", incoming_message)):
-    #     email = re.findall(r"\S+@\S+", incoming_message)[0]
-
-    #     sub = Subscribers.query.filter_by(email=email).first()
-    #     if sub:
-    #         sub.subscribed = True
-    #         sub.number_support_texts = 0
-    #         db.session.commit()
-
-    #     else:
-    #         subscriber = Subscribers(
-    #             email=email,
-    #             subscribed=True,
-    #             number_support_texts=0,
-    #             platform="Twilio",
-    #             json_response=json,
-    #         )
-    #         db.session.add(subscriber)
-    #         db.session.commit()
-
-    #     msg.body(f"\U0001F420 {email} has been added for daily random jam emails!")
-    #     responded = True
-
-    # elif bool(re.match(r"\bunsubscribe", incoming_message)):
-    #     email = re.findall(r"\S+@\S+", incoming_message)[0]
-
-    #     subs = Subscribers.query.filter_by(email=email)
-    #     for sub in subs:
-    #         sub.subscribed = False
-    #     db.session.commit()
-
-    #     msg.body(f"Your email {email} has been unsubscribed from daily jam emails.")
-    #     responded = True
-
     if incoming_message == "start mjm alerts":
 
         sub = MJMAlerts.query.filter_by(phone_number=json["From"][0]).first()
