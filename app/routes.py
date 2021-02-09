@@ -146,4 +146,4 @@ def get_random_jam():
 
 @app.route("/unsubscribeemails", methods=["POST"])
 def unsubscribeemail():
-    return render_template()
+    return render_template("unsubscribe_email.html")
