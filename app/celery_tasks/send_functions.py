@@ -82,20 +82,26 @@ def daily_email_sends():
 @celery.task(name="mjm_notifications")
 def mjm_notifications():
 
-    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+    bot = Bot(os.getenv("TELEGRAM_BOT_TOKEN"))
 
-    client = Client(account_sid, auth_token)
-
-    # query all with mjm_alerts=True
+    # query all with mjm_alerts
     subs = MJMAlerts.query.filter_by(mjm_alerts=True)
 
     for subscriber in subs:
-        if subscriber.mjm_alerts == True:
-            message = client.messages.create(
-                body=f"Mystery Jam Monday will be posted soon!\nphish.net",
-                from_=os.environ["TWILIO_NUMBER"],
-                to=subscriber.json_response["From"],
+        if subscriber.mjm_alerts:
+
+            keyboard = [
+                [
+                    InlineKeyboardButton("Phish.Net", url="https://phish.net/"),
+                ],
+            ]
+
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            bot.send_message(
+                chat_id=subscriber.telegram_chat_id,
+                text=f"Mystery Jam Monday has been posted!",
+                reply_markup=reply_markup,
             )
 
 

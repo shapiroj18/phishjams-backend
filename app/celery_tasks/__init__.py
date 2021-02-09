@@ -32,8 +32,7 @@ celery_beat_schedule = {
     },
     "support_texts": {
         "task": "support_notifications",
-        "schedule": crontab()
-        # "schedule": crontab(minute=0, hour=13, day_of_week="friday"),
+        "schedule": crontab(minute=0, hour=13, day_of_week="friday"),
     },
     "mjm_text": {
         "task": "mjm_notifications",

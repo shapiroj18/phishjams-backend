@@ -28,7 +28,7 @@ def radio():
 
 
 @app.route("/subscribedailyjams", methods=["POST"])
-def subscribe():
+def subscribedailyjams():
     try:
         email = request.values.get("email").lower()
         platform = request.values.get("platform").lower()
@@ -58,7 +58,7 @@ def subscribe():
 
 
 @app.route("/unsubscribedailyjams", methods=["POST"])
-def unsubscribe():
+def unsubscribedailyjams():
     try:
         email = request.values.get("email").lower()
         platform = request.values.get("platform").lower()
@@ -72,6 +72,54 @@ def unsubscribe():
             return jsonify(message=f"{email} removed successfully")
         else:
             return jsonify(message=f"{email} did not exist in the databse")
+    except TypeError:
+        return jsonify(
+            message="There was an error, please try again later or reach out to shapiroj18@gmail.com"
+        )
+
+
+@app.route("/subscribemjm", methods=["POST"])
+def subscribemjm():
+    try:
+        platform = request.values.get("platform").lower()
+        chat_id = request.values.get("chat_id")
+        sub = MJMAlerts.query.filter_by(telegram_chat_id=chat_id).first()
+        if sub:
+            sub.mjm_alerts = True
+            db.session.commit()
+
+        else:
+            mjm_subscriber = MJMAlerts(
+                mjm_alerts=True,
+                telegram_chat_id=chat_id,
+                platform=platform,
+            )
+            db.session.add(mjm_subscriber)
+            db.session.commit()
+        return jsonify(message=f"{chat_id} has been subscribed successfully!")
+
+    except TypeError:
+        return jsonify(
+            message="There was an error, please try again later or reach out to shapiroj18@gmail.com"
+        )
+
+
+@app.route("/unsubscribemjm", methods=["POST"])
+def unsubscribemjm():
+    try:
+        chat_id = request.values.get("chat_id")
+
+        sub = MJMAlerts.query.filter_by(telegram_chat_id=chat_id).first()
+        if sub:
+            subs = MJMAlerts.query.filter_by(telegram_chat_id=chat_id)
+            for sub in subs:
+                sub.mjm_alerts = False
+                db.session.commit()
+            return jsonify(message=f"{chat_id} removed successfully")
+
+        else:
+            return jsonify(message=f"{chat_id} did not exist in the databse")
+
     except TypeError:
         return jsonify(
             message="There was an error, please try again later or reach out to shapiroj18@gmail.com"
@@ -93,57 +141,3 @@ def get_random_jam():
         jam_url=jam_url,
         show_info=show_info,
     )
-
-
-# Twilio Bot
-@app.route("/bot", methods=["POST"])
-def bot():
-    twilio_post = request.values
-    json = twilio_post.to_dict(flat=False)
-
-    incoming_message = request.values.get("Body").lower()
-    resp = MessagingResponse()
-    msg = resp.message()
-    responded = False
-
-    if incoming_message == "start mjm alerts":
-
-        sub = MJMAlerts.query.filter_by(phone_number=json["From"][0]).first()
-        if sub:
-            sub.mjm_alerts = True
-            db.session.commit()
-
-        else:
-            mjm_subscriber = MJMAlerts(
-                mjm_alerts=True,
-                phone_number=json["From"][0],
-                platform="Twilio",
-                json_response=json,
-            )
-            db.session.add(mjm_subscriber)
-            db.session.commit()
-
-        msg.body("You've been subscribed to MJM reminders")
-        responded = True
-
-    elif incoming_message == "stop mjm alerts":
-
-        subs = MJMAlerts.query.filter_by(phone_number=json["From"][0])
-        for sub in subs:
-            sub.mjm_alerts = False
-        db.session.commit()
-        msg.body(f"You've been unsubscribed from MJM reminders")
-        responded = True
-
-    elif incoming_message == "code":
-        msg.body(
-            f"You can find the source code for this project at github.com/shapiroj18/phish-bot.\nIf you want to contribute, submit a PR or get in contact with shapiroj18@gmail.com!"
-        )
-        responded = True
-
-    elif not responded:
-        msg.body(
-            'Not a valid message. Send "features" to see what you can do with this bot'
-        )
-
-    return str(resp)
