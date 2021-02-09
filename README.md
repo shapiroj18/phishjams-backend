@@ -69,8 +69,6 @@ The environmental variables stored are:
 
 To Do:
 1.  Unsubscribe message 
-2.  Update to dotenv python
-3.  Update conversationhandler for 
-4.  contact endpoint
+2.  Add testing
 
 Find my profile on [phish.net](https://phish.net/user/harpua18)!

@@ -24,6 +24,10 @@ def index():
 def radio():
     return render_template("radio.html")
 
+@app.route("/email")
+def email():
+    return send_functions.email_send()
+
 
 @app.route("/subscribedailyjams", methods=["POST"])
 def subscribedailyjams():
@@ -139,3 +143,7 @@ def get_random_jam():
         jam_url=jam_url,
         show_info=show_info,
     )
+
+@app.route("/unsubscribeemails", methods=["POST"])
+def unsubscribeemail():
+    return render_template()

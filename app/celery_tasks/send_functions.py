@@ -39,6 +39,7 @@ def email_send():
             jam_url=jam_url,
             relisten_formatted_date=relisten_formatted_date,
             phishnet_url=phishnet_url,
+            web_url = os.getenv("WEB_URL")
         )
         mail.send(msg)
 
@@ -73,6 +74,7 @@ def daily_email_sends():
                     jam_url=jam_url,
                     relisten_formatted_date=relisten_formatted_date,
                     phishnet_url=phishnet_url,
+                    web_url = os.getenv("WEB_URL")
                 )
                 conn.send(msg)
 
