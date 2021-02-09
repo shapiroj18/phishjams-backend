@@ -8,10 +8,13 @@ from app.celery_tasks import send_functions
 from flask import render_template
 from flask_mail import Message
 
+from app.api_tasks import phishnet_api, phishin_api
 from twilio.twiml.messaging_response import MessagingResponse
 
 auth_key = os.environ.get("BOT_TOKEN")
 
+phishnet_api = phishnet_api.PhishNetAPI()
+phishin_api = phishin_api.PhishINAPI()
 
 @app.route("/")
 def index():
@@ -23,7 +26,7 @@ def radio():
     return render_template("radio.html")
 
 
-@app.route("/subscribe", methods=["POST"])
+@app.route("/subscribedailyjams", methods=["POST"])
 def subscribe():
     try:
         json = request.get_json()
@@ -48,15 +51,18 @@ def subscribe():
 
         return jsonify(message=f"{email} subscribed successfully")
     except TypeError:
-        return jsonify(message="There was an error, please try again later or reach out to shapiroj18@gmail.com")
+        return jsonify(
+            message="There was an error, please try again later or reach out to shapiroj18@gmail.com"
+        )
 
-@app.route("/unsubscribe", methods=["POST"])
+
+@app.route("/unsubscribedailyjams", methods=["POST"])
 def unsubscribe():
-    try: 
+    try:
         json = request.get_json()
         email = request.values.get("email").lower()
         platform = request.values.get("platform").lower()
-        
+
         sub = Subscribers.query.filter_by(email=email).first()
         if sub:
             subs = Subscribers.query.filter_by(email=email)
@@ -67,8 +73,27 @@ def unsubscribe():
         else:
             return jsonify(message=f"{email} did not exist in the databse")
     except TypeError:
-        return jsonify(message="There was an error, please try again later or reach out to shapiroj18@gmail.com")
-        
+        return jsonify(
+            message="There was an error, please try again later or reach out to shapiroj18@gmail.com"
+        )
+
+@app.route("/randomjam", methods=["GET"])
+def get_random_jam():
+    
+    song, date = phishnet_api.get_random_jamchart()
+    show_info = phishnet_api.get_show_url(date)
+    jam_url = phishin_api.get_song_url(song=song, date=date)
+    
+    print(song, date, show_info, jam_url)
+    
+    return jsonify(
+        song=song,
+        date=date,
+        jam_url=jam_url,
+        show_info=show_info,
+    )
+    
+
 
 
 # Twilio Bot
