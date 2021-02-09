@@ -16,6 +16,7 @@ auth_key = os.environ.get("BOT_TOKEN")
 phishnet_api = phishnet_api.PhishNetAPI()
 phishin_api = phishin_api.PhishINAPI()
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -29,9 +30,9 @@ def radio():
 @app.route("/subscribedailyjams", methods=["POST"])
 def subscribe():
     try:
-        json = request.get_json()
         email = request.values.get("email").lower()
         platform = request.values.get("platform").lower()
+        chat_id = request.values.get("chat_id")
         sub = Subscribers.query.filter_by(email=email).first()
         if sub:
             sub.subscribed = True
@@ -44,7 +45,7 @@ def subscribe():
                 subscribed=True,
                 number_support_texts=0,
                 platform=platform,
-                json_response=json,
+                telegram_chat_id=chat_id,
             )
             db.session.add(subscriber)
             db.session.commit()
@@ -59,7 +60,6 @@ def subscribe():
 @app.route("/unsubscribedailyjams", methods=["POST"])
 def unsubscribe():
     try:
-        json = request.get_json()
         email = request.values.get("email").lower()
         platform = request.values.get("platform").lower()
 
@@ -77,23 +77,22 @@ def unsubscribe():
             message="There was an error, please try again later or reach out to shapiroj18@gmail.com"
         )
 
+
 @app.route("/randomjam", methods=["GET"])
 def get_random_jam():
-    
+
     song, date = phishnet_api.get_random_jamchart()
     show_info = phishnet_api.get_show_url(date)
     jam_url = phishin_api.get_song_url(song=song, date=date)
-    
+
     print(song, date, show_info, jam_url)
-    
+
     return jsonify(
         song=song,
         date=date,
         jam_url=jam_url,
         show_info=show_info,
     )
-    
-
 
 
 # Twilio Bot
@@ -107,41 +106,41 @@ def bot():
     msg = resp.message()
     responded = False
 
-    if bool(re.match(r"\bsubscribe", incoming_message)):
-        email = re.findall(r"\S+@\S+", incoming_message)[0]
+    # if bool(re.match(r"\bsubscribe", incoming_message)):
+    #     email = re.findall(r"\S+@\S+", incoming_message)[0]
 
-        sub = Subscribers.query.filter_by(email=email).first()
-        if sub:
-            sub.subscribed = True
-            sub.number_support_texts = 0
-            db.session.commit()
+    #     sub = Subscribers.query.filter_by(email=email).first()
+    #     if sub:
+    #         sub.subscribed = True
+    #         sub.number_support_texts = 0
+    #         db.session.commit()
 
-        else:
-            subscriber = Subscribers(
-                email=email,
-                subscribed=True,
-                number_support_texts=0,
-                platform="Twilio",
-                json_response=json,
-            )
-            db.session.add(subscriber)
-            db.session.commit()
+    #     else:
+    #         subscriber = Subscribers(
+    #             email=email,
+    #             subscribed=True,
+    #             number_support_texts=0,
+    #             platform="Twilio",
+    #             json_response=json,
+    #         )
+    #         db.session.add(subscriber)
+    #         db.session.commit()
 
-        msg.body(f"\U0001F420 {email} has been added for daily random jam emails!")
-        responded = True
+    #     msg.body(f"\U0001F420 {email} has been added for daily random jam emails!")
+    #     responded = True
 
-    elif bool(re.match(r"\bunsubscribe", incoming_message)):
-        email = re.findall(r"\S+@\S+", incoming_message)[0]
+    # elif bool(re.match(r"\bunsubscribe", incoming_message)):
+    #     email = re.findall(r"\S+@\S+", incoming_message)[0]
 
-        subs = Subscribers.query.filter_by(email=email)
-        for sub in subs:
-            sub.subscribed = False
-        db.session.commit()
+    #     subs = Subscribers.query.filter_by(email=email)
+    #     for sub in subs:
+    #         sub.subscribed = False
+    #     db.session.commit()
 
-        msg.body(f"Your email {email} has been unsubscribed from daily jam emails.")
-        responded = True
+    #     msg.body(f"Your email {email} has been unsubscribed from daily jam emails.")
+    #     responded = True
 
-    elif incoming_message == "start mjm alerts":
+    if incoming_message == "start mjm alerts":
 
         sub = MJMAlerts.query.filter_by(phone_number=json["From"][0]).first()
         if sub:
