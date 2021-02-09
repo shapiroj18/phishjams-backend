@@ -2,8 +2,11 @@ import os
 import json
 import requests
 import httpx
+from dotenv import load_dotenv
 
-api_key = os.environ.get("PHISHIN_API_KEY")
+load_dotenv()
+
+api_key = os.getenv("PHISHIN_API_KEY")
 
 
 class PhishINAPI:

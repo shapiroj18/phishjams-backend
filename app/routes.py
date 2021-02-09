@@ -11,8 +11,6 @@ from flask_mail import Message
 from app.api_tasks import phishnet_api, phishin_api
 from twilio.twiml.messaging_response import MessagingResponse
 
-auth_key = os.environ.get("BOT_TOKEN")
-
 phishnet_api = phishnet_api.PhishNetAPI()
 phishin_api = phishin_api.PhishINAPI()
 

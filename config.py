@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -6,16 +9,16 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    CELERY_BACKEND = os.environ.get("CELERY_BACKEND")
-    CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
-    SECRET_KEY = os.environ.get("SECRET_KEY")
+    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
+    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
+    CELERY_BACKEND = os.getenv("CELERY_BACKEND")
+    CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+    SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 class ProductionConfig(Config):
