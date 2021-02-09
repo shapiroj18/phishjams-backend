@@ -2,15 +2,17 @@ import datetime
 import os
 from flask import render_template
 from flask_mail import Message
+from dotenv import load_dotenv
+
 
 from . import celery
 from app import app, mail, db
 from app.models import Subscribers, MJMAlerts
 from ..api_tasks import phishnet_api, phishin_api
 
-from twilio.rest import Client
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 
-
+load_dotenv()
 phishnet_api = phishnet_api.PhishNetAPI()
 phishin_api = phishin_api.PhishINAPI()
 
@@ -100,10 +102,7 @@ def mjm_notifications():
 @celery.task(name="support_notifications")
 def support_notifications():
 
-    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-
-    client = Client(account_sid, auth_token)
+    bot = Bot(os.getenv("TELEGRAM_BOT_TOKEN"))
 
     # query all with subscribed=True
     subs = Subscribers.query.filter_by(subscribed=True)
@@ -120,10 +119,25 @@ def support_notifications():
                     lang_times = (
                         "Don't worry, this is the last time you'll see this message"
                     )
-                message = client.messages.create(
-                    body=f"If you want to support the development of this project, please consider contributing!\nhttps://ko-fi.com/shapiroj18\nhttps://www.patreon.com/shapiro18\n{lang_times}.",
-                    from_=os.environ["TWILIO_NUMBER"],
-                    to=subscriber.phone_number,
+
+                keyboard = [
+                    [
+                        InlineKeyboardButton(
+                            "Ko-Fi", url="https://ko-fi.com/shapiroj18"
+                        ),
+                        InlineKeyboardButton(
+                            "Patreon", url="https://www.patreon.com/shapiro18"
+                        ),
+                    ]
+                ]
+
+                reply_markup = InlineKeyboardMarkup(keyboard)
+
+                bot.send_message(
+                    chat_id=subscriber.telegram_chat_id,
+                    text=f"If you want to support the development of this project, please consider contributing! {lang_times}.",
+                    reply_markup=reply_markup,
+                    disable_web_page_preview=True,
                 )
 
                 subscriber.number_support_texts += 1

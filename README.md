@@ -78,5 +78,7 @@ To Do:
 8.  Create events tables (when messages are sent, when messages are received)
 9.  Unsubscribe message 
 10. Update to dotenv python
+11. Update conversationhandler for 
+12. contact endpoint
 
 Find my profile on [phish.net](https://phish.net/user/harpua18)!
