@@ -3,8 +3,11 @@ import json
 import random
 import requests
 import httpx
+from dotenv import load_dotenv
 
-api_key = os.environ.get("PHISHNET_API_KEY")
+load_dotenv()
+
+api_key = os.getenv("PHISHNET_API_KEY")
 
 
 class PhishNetAPI:

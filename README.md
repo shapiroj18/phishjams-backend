@@ -68,17 +68,7 @@ The environmental variables stored are:
 5. PHISHIN_API_KEY=`api_key` (API Key for Phish.in can be requested at the [contacts page](https://phish.in/contact-info) and info about the api can be found in the [api docs](https://phish.in/api-docs))
 
 To Do:
-1. Pytest
-2. Mypy
-3. Phish Trivia Game
-4. Next Phish Show (location/date)
-5.  Figure out how to automate `flask db upgrade`
-6.  Tests and incorporate into github actions
-7.  Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
-8.  Create events tables (when messages are sent, when messages are received)
-9.  Unsubscribe message 
-10. Update to dotenv python
-11. Update conversationhandler for 
-12. contact endpoint
+1.  Unsubscribe message 
+2.  Add testing
 
 Find my profile on [phish.net](https://phish.net/user/harpua18)!

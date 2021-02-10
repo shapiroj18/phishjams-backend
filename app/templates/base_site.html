@@ -5,6 +5,21 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         {% block head %}{% endblock %}
     </head>
+    <style>
+        h1 {
+            text-align: center;
+            font-family: verdana;
+        }
+        h2 {
+            text-align: center;
+            font-family: verdana;
+        }
+        p {
+            text-align: center;
+            font-family: verdana;
+        }
+
+    </style>
     <body style="margin: 0; padding: 0;">
         {% block body %}{% endblock %}
     </body>

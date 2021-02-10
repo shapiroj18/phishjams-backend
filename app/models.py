@@ -20,7 +20,6 @@ class Subscribers(db.Model):
 class MJMAlerts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mjm_alerts = db.Column(db.Boolean)
-    phone_number = db.Column(db.String(60))
     platform = db.Column(db.String(60))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     telegram_chat_id = db.Column(db.Integer)

@@ -39,6 +39,7 @@ def email_send():
             jam_url=jam_url,
             relisten_formatted_date=relisten_formatted_date,
             phishnet_url=phishnet_url,
+            web_url = os.getenv("WEB_URL")
         )
         mail.send(msg)
 
@@ -73,6 +74,7 @@ def daily_email_sends():
                     jam_url=jam_url,
                     relisten_formatted_date=relisten_formatted_date,
                     phishnet_url=phishnet_url,
+                    web_url = os.getenv("WEB_URL")
                 )
                 conn.send(msg)
 
@@ -82,20 +84,26 @@ def daily_email_sends():
 @celery.task(name="mjm_notifications")
 def mjm_notifications():
 
-    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+    bot = Bot(os.getenv("TELEGRAM_BOT_TOKEN"))
 
-    client = Client(account_sid, auth_token)
-
-    # query all with mjm_alerts=True
+    # query all with mjm_alerts
     subs = MJMAlerts.query.filter_by(mjm_alerts=True)
 
     for subscriber in subs:
-        if subscriber.mjm_alerts == True:
-            message = client.messages.create(
-                body=f"Mystery Jam Monday will be posted soon!\nphish.net",
-                from_=os.environ["TWILIO_NUMBER"],
-                to=subscriber.json_response["From"],
+        if subscriber.mjm_alerts:
+
+            keyboard = [
+                [
+                    InlineKeyboardButton("Phish.Net", url="https://phish.net/"),
+                ],
+            ]
+
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            bot.send_message(
+                chat_id=subscriber.telegram_chat_id,
+                text=f"Mystery Jam Monday has been posted!",
+                reply_markup=reply_markup,
             )
 
 
@@ -125,19 +133,20 @@ def support_notifications():
                         InlineKeyboardButton(
                             "Ko-Fi", url="https://ko-fi.com/shapiroj18"
                         ),
+                    ],
+                    [
                         InlineKeyboardButton(
                             "Patreon", url="https://www.patreon.com/shapiro18"
                         ),
-                    ]
+                    ],
                 ]
 
                 reply_markup = InlineKeyboardMarkup(keyboard)
 
                 bot.send_message(
                     chat_id=subscriber.telegram_chat_id,
-                    text=f"If you want to support the development of this project, please consider contributing! {lang_times}.",
+                    text=f"This bot is not cheap to build! If you want to support the development of this project, please consider contributing. {lang_times}.",
                     reply_markup=reply_markup,
-                    disable_web_page_preview=True,
                 )
 
                 subscriber.number_support_texts += 1
