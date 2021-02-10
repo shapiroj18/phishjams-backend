@@ -1,12 +1,12 @@
 import re
 import os
 
-from flask import request, jsonify
+from flask import request, jsonify, render_template, redirect
 from app import app, mail, db
 from app.models import Subscribers, MJMAlerts
 from app.celery_tasks import send_functions
-from flask import render_template
 from flask_mail import Message
+from app.forms import UnsubscribeEmail
 
 from app.api_tasks import phishnet_api, phishin_api
 from twilio.twiml.messaging_response import MessagingResponse
@@ -144,6 +144,20 @@ def get_random_jam():
         show_info=show_info,
     )
 
-@app.route("/unsubscribeemail")
+@app.route("/unsubscribeemail", methods=["Get", "POST"])
 def unsubscribeemail():
-    return render_template("unsubscribe_email.html")
+    form = UnsubscribeEmail()
+    if form.validate_on_submit():
+        email = form.email.data
+
+        subs = Subscribers.query.filter_by(email=email)
+        for sub in subs:
+            sub.subscribed = False
+        db.session.commit()
+        return redirect('/successfulunsubscribe')
+
+    return render_template("unsubscribe_email.html", form=form)
+
+@app.route("/successfulunsubscribe")
+def successfulunsubscribe():
+    return render_template('successful_unsubscribe.html')
