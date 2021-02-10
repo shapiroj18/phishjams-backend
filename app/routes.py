@@ -24,6 +24,7 @@ def index():
 def radio():
     return render_template("radio.html")
 
+
 @app.route("/email")
 def email():
     return send_functions.email_send()
@@ -144,6 +145,7 @@ def get_random_jam():
         show_info=show_info,
     )
 
+
 @app.route("/unsubscribeemail", methods=["Get", "POST"])
 def unsubscribeemail():
     form = UnsubscribeEmail()
@@ -154,10 +156,11 @@ def unsubscribeemail():
         for sub in subs:
             sub.subscribed = False
         db.session.commit()
-        return redirect('/successfulunsubscribe')
+        return redirect("/successfulunsubscribe")
 
     return render_template("unsubscribe_email.html", form=form)
 
+
 @app.route("/successfulunsubscribe")
 def successfulunsubscribe():
-    return render_template('successful_unsubscribe.html')
+    return render_template("successful_unsubscribe.html")
