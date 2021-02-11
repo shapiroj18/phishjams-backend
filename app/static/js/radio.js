@@ -18,11 +18,10 @@ Amplitude.init({
     },
     "songs": [
       {
-        "name": "Risin' High (feat Raashan Ahmad)",
-        "artist": "Ancient Astronauts",
-        "album": "We Are to Answer",
+        "name": "Shafty",
+        "artist": "Phish",
         "url": "https://phish.in/audio/000/018/032/18032.mp3",
-        "cover_art_url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/10/Live_Phish_4-5-98_%28album_cover_art%29.jpg/220px-Live_Phish_4-5-98_%28album_cover_art%29.jpg"
+        "cover_art_url": "static/img/livephish_logos/livephish4598_4900013482_o.jpg"
       }
     ]
   });
