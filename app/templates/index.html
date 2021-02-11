@@ -2,15 +2,54 @@
 
 {% block head %}
 <title>
-    Phish Bot
+    Phish Radio
 </title>
+
+<!-- Include font -->
+<link href="https://fonts.googleapis.com/css?family=Lato:400,400i" rel="stylesheet">
+
+<!-- Include Amplitude JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@5.2.0/dist/amplitude.js"></script>
+
+<!-- Amplitude JS -->
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@5.2.0/dist/amplitude.js"></script> -->
+
+
+<!-- Include Style Sheet -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/radio.css') }}"/>
+
 {% endblock %}
 
 {% block body %}
 <h2>
-    <i>Listen to Japan 2000</i>
+    <i>Phish Radio</i>
 </h2>
-<p>
-    <img src="https://drive.google.com/uc?export=view&id=1KCFEG_M63igx9ga7VY0Cm7nGHNseclNx" alt="Phish Tour Japan 2000" width="400"/>
-</p>
+<div id="single-song-player">
+    <img data-amplitude-song-info="cover_art_url"/>
+    <div class="bottom-container">
+      <progress class="amplitude-song-played-progress" id="song-played-progress"></progress>
+
+      <div class="time-container">
+        <span class="current-time">
+          <span class="amplitude-current-minutes"></span>:<span class="amplitude-current-seconds"></span>
+        </span>
+        <span class="duration">
+          <span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
+        </span>
+      </div>
+
+      <div class="control-container">
+        <div class="amplitude-play-pause" id="play-pause"></div>
+        <div class="meta-container">
+          <span data-amplitude-song-info="name" class="song-name"></span>
+          <span data-amplitude-song-info="artist"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Include UX functions JS-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/radio.js') }}"></script>
+
+
+<!-- <script type=text/javascript src="{{ url_for('static', filename='js/radio.js') }}"></script> -->
 {% endblock %}

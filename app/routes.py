@@ -19,9 +19,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/radio")
+@app.route("/japan")
 def radio():
-    return render_template("radio.html")
+    return render_template("japan.html")
 
 
 @app.route("/email")
