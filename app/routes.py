@@ -21,7 +21,8 @@ def index():
 
 @app.route("/radio")
 def radio():
-    return render_template("radio.html")
+    number = 18
+    return render_template("radio.html", number=number)
 
 
 @app.route("/email")
