@@ -1,3 +1,13 @@
+var songs = [
+    {
+    "name": "Shafty",
+    "artist": "Phish",
+    "url": "https://phish.in/audio/000/018/032/18032.mp3",
+    "cover_art_url": "static/img/livephish_logos/1998-04-05.jpg" 
+    }
+]
+
+
 Amplitude.init({
     "bindings": {
       37: 'prev',
@@ -6,14 +16,8 @@ Amplitude.init({
     },
 
 
-    "songs": [
-      {
-        "name": "Shafty",
-        "artist": "Phish",
-        "url": "https://phish.in/audio/000/018/032/18032.mp3",
-        "cover_art_url": "static/img/livephish_logos/livephish4598_4900013482_o.jpg"
-      }
-    ]
+    "songs": songs
+
   });
 
   window.onkeydown = function(e) {

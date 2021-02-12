@@ -22,16 +22,16 @@ div.control-container {
   div.control-container div.meta-container {
     float: left;
     width: calc(100% - 84px);
-    text-align: center;
+    text-align: left;
     color: white;
     margin-top: 10px; }
     div.control-container div.meta-container span[data-amplitude-song-info="name"] {
-      font-family: "Open Sans", sans-serif;
+      font-family: "verdana";
       font-size: 18px;
       color: #fff;
       display: block; }
     div.control-container div.meta-container span[data-amplitude-song-info="artist"] {
-      font-family: "Open Sans", sans-serif;
+      font-family: "verdana";
       font-weight: 100;
       font-size: 14px;
       color: #fff;
@@ -59,7 +59,7 @@ div.control-container {
 */
 div.time-container {
   opacity: 0.5;
-  font-family: 'Open Sans';
+  font-family: 'verdana';
   font-weight: 100;
   font-size: 12px;
   color: #fff;
