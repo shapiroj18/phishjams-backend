@@ -16,6 +16,8 @@ Amplitude.init({
       39: 'next',
       32: 'play_pause'
     },
+
+
     "songs": [
       {
         "name": "Shafty",
