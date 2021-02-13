@@ -17,8 +17,8 @@ phishnet_api = phishnet_api.PhishNetAPI()
 phishin_api = phishin_api.PhishINAPI()
 
 
-@celery.task(name="email_send")
-def email_send():
+@celery.task(name="email_send_test")
+def email_send_test():
     song, date = phishnet_api.get_random_jamchart()
     jam_url = phishin_api.get_song_url(song=song, date=date)
     relisten_formatted_date = datetime.datetime.strptime(date, "%Y-%m-%d").strftime(
