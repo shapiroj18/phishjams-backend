@@ -136,7 +136,7 @@ def support_notifications():
                     ],
                     [
                         InlineKeyboardButton(
-                            "Patreon", url="https://www.patreon.com/shapiro18"
+                            "GitHub", url="https://github.com/sponsors/shapiroj18"
                         ),
                     ],
                 ]
