@@ -163,3 +163,14 @@ def unsubscribeemail():
 @app.route("/successfulunsubscribe")
 def successfulunsubscribe():
     return render_template("successful_unsubscribe.html")
+
+
+@app.route("/get_song_info", methods=["GET"])
+def get_song_info():
+
+    return jsonify(
+      name="Harry Hood",
+      artist="Phish",
+      url="https://phish.in/audio/000/020/602/20602.mp3",
+      cover_art_url="static/img/livephish_logos/1999-12-31.jpg",
+    )
