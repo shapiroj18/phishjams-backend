@@ -29,7 +29,7 @@ def email_send_test():
     with app.app_context():
         msg = Message(
             subject="Daily Phish Jam",
-            sender=os.getenv('SENDGRID_MAIL_SENDER'),
+            sender=os.getenv("SENDGRID_MAIL_SENDER"),
             recipients=["shapiroj18@gmail.com"],
         )
         msg.html = render_template(
@@ -64,7 +64,7 @@ def daily_email_sends():
             for subscriber in subs:
                 msg = Message(
                     subject="Daily Phish Jam",
-                    sender=os.getenv('SENDGRID_MAIL_SENDER'),
+                    sender=os.getenv("SENDGRID_MAIL_SENDER"),
                     recipients=[subscriber.email],
                 )
                 msg.html = render_template(
