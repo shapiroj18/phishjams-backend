@@ -17,8 +17,8 @@ phishnet_api = phishnet_api.PhishNetAPI()
 phishin_api = phishin_api.PhishINAPI()
 
 
-@celery.task(name="email_send")
-def email_send():
+@celery.task(name="email_send_test")
+def email_send_test():
     song, date = phishnet_api.get_random_jamchart()
     jam_url = phishin_api.get_song_url(song=song, date=date)
     relisten_formatted_date = datetime.datetime.strptime(date, "%Y-%m-%d").strftime(
@@ -29,7 +29,7 @@ def email_send():
     with app.app_context():
         msg = Message(
             subject="Daily Phish Jam",
-            sender=app.config.get("MAIL_USERNAME"),
+            sender=os.getenv("SENDGRID_MAIL_SENDER"),
             recipients=["shapiroj18@gmail.com"],
         )
         msg.html = render_template(
@@ -64,7 +64,7 @@ def daily_email_sends():
             for subscriber in subs:
                 msg = Message(
                     subject="Daily Phish Jam",
-                    sender=app.config.get("MAIL_USERNAME"),
+                    sender=os.getenv("SENDGRID_MAIL_SENDER"),
                     recipients=[subscriber.email],
                 )
                 msg.html = render_template(
@@ -136,7 +136,7 @@ def support_notifications():
                     ],
                     [
                         InlineKeyboardButton(
-                            "Patreon", url="https://www.patreon.com/shapiro18"
+                            "GitHub", url="https://github.com/sponsors/shapiroj18"
                         ),
                     ],
                 ]

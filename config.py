@@ -11,11 +11,11 @@ class Config(object):
     TESTING = False
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MAIL_SERVER = "smtp.gmail.com"
-    MAIL_PORT = 465
-    MAIL_USE_SSL = True
+    MAIL_SERVER = "smtp.sendgrid.net"
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
+    MAIL_PASSWORD = os.getenv("SENDGRID_API_KEY")
     CELERY_BACKEND = os.getenv("CELERY_BACKEND")
     CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
     SECRET_KEY = os.getenv("SECRET_KEY")
