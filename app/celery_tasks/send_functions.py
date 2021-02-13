@@ -29,7 +29,7 @@ def email_send():
     with app.app_context():
         msg = Message(
             subject="Daily Phish Jam",
-            sender=app.config.get("MAIL_USERNAME"),
+            sender=os.getenv('SENDGRID_MAIL_SENDER'),
             recipients=["shapiroj18@gmail.com"],
         )
         msg.html = render_template(

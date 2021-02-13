@@ -24,7 +24,7 @@ def radio():
     return render_template("japan.html")
 
 
-@app.route("/email")
+@app.route(f"/{os.getenv('RANDOM_VALUE')}/emailtest")
 def email():
     return send_functions.email_send()
 

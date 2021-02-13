@@ -34,7 +34,7 @@ Technologies:
 * Celery
 * Redis
 * Autoenv
-* Flask-Mail
+* Flask-Mail with Sendgrid
 * Flask-Migrate
 * Ngrok
 
