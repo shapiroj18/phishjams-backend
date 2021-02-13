@@ -64,7 +64,7 @@ def daily_email_sends():
             for subscriber in subs:
                 msg = Message(
                     subject="Daily Phish Jam",
-                    sender=app.config.get("MAIL_USERNAME"),
+                    sender=os.getenv('SENDGRID_MAIL_SENDER'),
                     recipients=[subscriber.email],
                 )
                 msg.html = render_template(

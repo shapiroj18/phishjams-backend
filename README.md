@@ -68,7 +68,6 @@ The environmental variables stored are:
 5. PHISHIN_API_KEY=`api_key` (API Key for Phish.in can be requested at the [contacts page](https://phish.in/contact-info) and info about the api can be found in the [api docs](https://phish.in/api-docs))
 
 To Do:
-1.  Unsubscribe message 
-2.  Add testing
+1.  Add testing
 
 Find my profile on [phish.net](https://phish.net/user/harpua18)!
