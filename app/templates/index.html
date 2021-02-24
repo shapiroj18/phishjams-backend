@@ -11,9 +11,6 @@
 <!-- Include Amplitude JS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@5.2.0/dist/amplitude.js"></script>
 
-<!-- Amplitude JS -->
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@5.2.0/dist/amplitude.js"></script> -->
-
 
 <!-- Include Style Sheet -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/radio.css') }}"/>
@@ -21,6 +18,7 @@
 {% endblock %}
 
 {% block body %}
+
 <h2>
     <i>Phish Radio</i>
 </h2>
@@ -47,9 +45,8 @@
       </div>
     </div>
   </div>
+
   <!--Include UX functions JS-->
-<script type="text/javascript" src="{{ url_for('static', filename='js/radio.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/radio.js') }}"></script>
 
-
-<!-- <script type=text/javascript src="{{ url_for('static', filename='js/radio.js') }}"></script> -->
 {% endblock %}

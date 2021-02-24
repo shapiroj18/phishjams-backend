@@ -1,5 +1,6 @@
 import re
 import os
+import json
 
 from flask import request, jsonify, render_template, redirect
 from app import app, mail, db
@@ -163,3 +164,28 @@ def unsubscribeemail():
 @app.route("/successfulunsubscribe")
 def successfulunsubscribe():
     return render_template("successful_unsubscribe.html")
+
+
+@app.route("/get_song_info", methods=["GET"])
+def get_song_info():
+    
+    mock_db = [
+        {
+            "name": "Shafty",
+            "artist": "Phish",
+            "url": "https://phish.in/audio/000/018/032/18032.mp3",
+            "cover_art_url": "static/img/livephish_logos/1998-04-05.jpg",
+            "date": "1998-04-05"
+        },
+        {
+            "name": "Divided Sky",
+            "artist": "Phish",
+            "url": "https://phish.in/audio/000/031/902/31902.mp3",
+            "cover_art_url": "static/img/livephish_logos/1987-05-11.jpg",
+            "date": "1987-05-11"
+        },
+    ]
+    
+    songs = json.dumps(mock_db)
+
+    return jsonify(songs)
