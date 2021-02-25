@@ -46,8 +46,6 @@ class PhishNetAPI:
             response = client.get(url=phishnet_endpoint, params=payload)
 
             return response.json()
-        
-        
 
     def get_jamchart_song_ids(self, song=None):
         response = self.get_all_jamcharts()
@@ -55,7 +53,9 @@ class PhishNetAPI:
         if song:
             for item in response["response"]["data"]:
                 if item["song"].lower() == song.lower():
-                    song_ids = [item["songid"],]
+                    song_ids = [
+                        item["songid"],
+                    ]
         else:
             song_ids = []
             for item in response["response"]["data"]:
@@ -65,15 +65,15 @@ class PhishNetAPI:
 
     def get_random_jamchart(self, song=None):
         jamchart_song_ids = self.get_jamchart_song_ids(song)
-        
+
         song_id = random.choice(jamchart_song_ids)
         chart = self.get_one_jamchart(song_id)
         song = chart["response"]["data"]["song"]
-        
+
         entries_count = len(chart["response"]["data"]["entries"])
-        date = chart["response"]["data"]["entries"][
-            random.randrange(entries_count)
-        ]["showdate"]
+        date = chart["response"]["data"]["entries"][random.randrange(entries_count)][
+            "showdate"
+        ]
 
         return song, date
 

@@ -132,14 +132,14 @@ def unsubscribemjm():
 @app.route("/randomjam", methods=["POST"])
 def get_random_jam():
     try:
-        song = request.values.get("song")    
+        song = request.values.get("song")
 
         song, date = phishnet_api.get_random_jamchart(song=song)
         show_info = phishnet_api.get_show_url(date)
         jam_url = phishin_api.get_song_url(song=song, date=date)
 
         print(song, date, show_info, jam_url)
-        
+
         if "No mp3 for the song" in jam_url:
             return jsonify(
                 song=song,
