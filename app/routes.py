@@ -129,21 +129,32 @@ def unsubscribemjm():
         )
 
 
-@app.route("/randomjam", methods=["GET"])
+@app.route("/randomjam", methods=["POST"])
 def get_random_jam():
+    try:
+        # song = request.values.get("song")
+        # year = request.values.get("year")
+        
+        song=None
+        year=1997
 
-    song, date = phishnet_api.get_random_jamchart()
-    show_info = phishnet_api.get_show_url(date)
-    jam_url = phishin_api.get_song_url(song=song, date=date)
+        song, date = phishnet_api.get_random_jamchart(song=song, year=year)
+        show_info = phishnet_api.get_show_url(date)
+        jam_url = phishin_api.get_song_url(song=song, date=date)
 
-    print(song, date, show_info, jam_url)
-
-    return jsonify(
-        song=song,
-        date=date,
-        jam_url=jam_url,
-        show_info=show_info,
-    )
+        print(song, date, show_info, jam_url)
+        
+        if "No mp3 for the song" in jam_url:
+            return jsonify(response= "No mp3 found for the selected random jam, please try again.")
+        else:
+            return jsonify(
+                song=song,
+                date=date,
+                jam_url=jam_url,
+                show_info=show_info,
+            )
+    except ValueError:
+        return jsonify(response="No jams found for song/year combination")
 
 
 @app.route("/unsubscribeemail", methods=["Get", "POST"])
@@ -168,24 +179,24 @@ def successfulunsubscribe():
 
 @app.route("/get_song_info", methods=["GET"])
 def get_song_info():
-    
+
     mock_db = [
         {
             "name": "Shafty",
             "artist": "Phish",
             "url": "https://phish.in/audio/000/018/032/18032.mp3",
             "cover_art_url": "static/img/livephish_logos/1998-04-05.jpg",
-            "date": "1998-04-05"
+            "date": "1998-04-05",
         },
         {
             "name": "Divided Sky",
             "artist": "Phish",
             "url": "https://phish.in/audio/000/031/902/31902.mp3",
             "cover_art_url": "static/img/livephish_logos/1987-05-11.jpg",
-            "date": "1987-05-11"
+            "date": "1987-05-11",
         },
     ]
-    
+
     songs = json.dumps(mock_db)
 
     return jsonify(songs)

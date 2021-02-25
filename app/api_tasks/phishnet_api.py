@@ -4,6 +4,7 @@ import random
 import requests
 import httpx
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -45,30 +46,56 @@ class PhishNetAPI:
             response = client.get(url=phishnet_endpoint, params=payload)
 
             return response.json()
+        
+        
 
-    def get_jamchart_song_ids(self):
+    def get_jamchart_song_ids(self, song=None):
         response = self.get_all_jamcharts()
 
-        all_jamchart_songs = []
-        for item in response["response"]["data"]:
-            all_jamchart_songs.append(item["songid"])
+        if song:
+            for item in response["response"]["data"]:
+                if item["song"].lower() == song.lower():
+                    song_ids = [item["songid"],]
+        else:
+            song_ids = []
+            for item in response["response"]["data"]:
+                song_ids.append(item["songid"])
 
-        return all_jamchart_songs
+        return song_ids
 
-    def get_random_jamchart(self):
-        jamchart_songs = self.get_jamchart_song_ids()
-        rand_id = random.choice(jamchart_songs)
+    def get_random_jamchart(self, song=None, year=None):
+        jamchart_song_ids = self.get_jamchart_song_ids(song)
+        
+        song_id = random.choice(jamchart_song_ids)
 
-        chart = self.get_one_jamchart(rand_id)
+        chart = self.get_one_jamchart(song_id)
+        
         song = chart["response"]["data"]["song"]
-        entries_count = len(chart["response"]["data"]["entries"])
-        rand_date = chart["response"]["data"]["entries"][
-            random.randrange(entries_count)
-        ]["showdate"]
+        
+        if year:
+            # get a random date by year
+            year_entries = []
+            for item in chart["response"]["data"]["entries"]:
+                showdate_year = int(datetime.strptime(item["showdate"], "%Y-%m-%d").strftime("%Y"))
+                print(showdate_year)
 
-        return song, rand_date
+                if showdate_year == year:
+                    year_entries.append(item)
+                    
+                    
+            entries_count = len(year_entries)
+            date = year_entries[random.randrange(entries_count)]["showdate"]
+        else:
+            # get a random date
+            entries_count = len(chart["response"]["data"]["entries"])
+            date = chart["response"]["data"]["entries"][
+                random.randrange(entries_count)
+            ]["showdate"]
+
+        return song, date
 
     def get_show_url(self, date):
+        # handle nonexistant lookups
         phishnet_endpoint = "https://api.phish.net/v3//setlists/get"
 
         with httpx.Client() as client:
