@@ -28,4 +28,16 @@ class MJMAlerts(db.Model):
         return f"<id {self.id}>"
 
 
-# class EmailSends(db.Model):
+class PhishJamsQueue(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    telegram_chat_id = db.Column(db.String(60))
+    platform = db.Column(db.String(60))
+    user_first_name = db.Column(db.String(60))
+    song_name = db.Column(db.String(60))
+    song_url = db.Column(db.String(60))
+    cover_art_url = db.Column(db.String(120))
+    show_date = db.Column(db.String(60))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"<id {self.id}>"

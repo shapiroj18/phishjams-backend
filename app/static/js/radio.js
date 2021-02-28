@@ -11,7 +11,7 @@ const createAmplitude = () => {
       "bindings": {
       37: 'prev',
       39: 'next',
-      32: 'play_pause'
+      32: 'play_pause',
     },
 
     "songs": JSON.parse(response)
