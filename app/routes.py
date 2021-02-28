@@ -178,7 +178,7 @@ def unsubscribeemail():
 def successfulunsubscribe():
     return render_template("successful_unsubscribe.html")
 
-    
+
 @app.route("/addtoqueue", methods=["POST"])
 def add_to_queue():
     try:
@@ -198,29 +198,30 @@ def add_to_queue():
                 show_info=show_info,
             )
         else:
-            
+
             dir_path = os.path.dirname(os.path.realpath(__file__))
-            cover_art_file = f'static/img/livephish_logos/{date}.jpg'
+            cover_art_file = f"static/img/livephish_logos/{date}.jpg"
             path_cover_art = os.path.join(dir_path, cover_art_file)
             if os.path.exists(path_cover_art):
                 cover_art_url = cover_art_file
             else:
-                cover_art_url = os.path.join(dir_path, 'static/img/livephish_logos/default.jpg')
-            
+                cover_art_url = os.path.join(
+                    dir_path, "static/img/livephish_logos/default.jpg"
+                )
 
             queue_item = PhishJamsQueue(
-                telegram_chat_id = request.values.get("chat_id"),
-                platform = request.values.get("platform"),
-                user_first_name = request.values.get("user_first_name"),
-                song_name = song,
-                song_url = jam_url,
-                cover_art_url = cover_art_url,
-                show_date = date,
+                telegram_chat_id=request.values.get("chat_id"),
+                platform=request.values.get("platform"),
+                user_first_name=request.values.get("user_first_name"),
+                song_name=song,
+                song_url=jam_url,
+                cover_art_url=cover_art_url,
+                show_date=date,
             )
-            
+
             db.session.add(queue_item)
             db.session.commit()
-            
+
             return jsonify(
                 song=song,
                 date=date,
@@ -231,21 +232,22 @@ def add_to_queue():
         print(f"Error: {e}")
         return jsonify(response="No jams found for that song. Please try again!")
 
+
 @app.route("/get_song_info", methods=["GET"])
 def get_song_info():
-    
+
     songs = []
     queue_songs = PhishJamsQueue.query.all()
     for song in queue_songs:
         song_obj = {
-            'name': song.song_name,
-            'artist': 'Phish',
-            'url': song.song_url,
-            'cover_art_url': song.cover_art_url,
-            'date': song.show_date,
+            "name": song.song_name,
+            "artist": "Phish",
+            "url": song.song_url,
+            "cover_art_url": song.cover_art_url,
+            "date": song.show_date,
         }
         songs.append(song_obj)
-        
+
     songs_obj = json.dumps(songs)
 
     return jsonify(songs_obj)
