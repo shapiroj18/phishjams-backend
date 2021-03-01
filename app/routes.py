@@ -182,14 +182,14 @@ def successfulunsubscribe():
 @app.route("/addtoqueue", methods=["POST"])
 def add_to_queue():
     try:
-        song = request.values.get("song") 
+        song = request.values.get("song")
         date = request.values.get("jam_date")
 
         if song and date:
             show_info = phishnet_api.get_show_url(date)
             jam_url = phishin_api.get_song_url(song=song, date=date)
             print(song, date, show_info, jam_url)
-            
+
         else:
             song, date = phishnet_api.get_random_jamchart(song=song)
             show_info = phishnet_api.get_show_url(date)
