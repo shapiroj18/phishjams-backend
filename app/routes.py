@@ -202,7 +202,7 @@ def check_queue_status():
 @app.route("/addtoqueue", methods=["POST"])
 def add_to_queue():
     try:
-        song = request.values.get("song")
+        song = request.values.get("song").title()
         date = request.values.get("jam_date")
 
         if song and date:
@@ -262,18 +262,42 @@ def add_to_queue():
 @app.route("/get_song_info", methods=["GET"])
 def get_song_info():
 
-    songs = []
     queue_songs = PhishJamsQueue.query.all()
-    for song in queue_songs:
-        song_obj = {
-            "name": song.song_name,
-            "artist": "Phish",
-            "url": song.song_url,
-            "cover_art_url": song.cover_art_url,
-            "date": song.show_date,
-        }
-        songs.append(song_obj)
+    
+    if len(queue_songs) == 0:
+        songs = [
+            {
+                "name": "Twist",
+                "artist": "Phish",
+                "url": "http://phish.in/audio/000/020/578/20578.mp3",
+                "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
+                "date": "2000-06-14"
+            },
+            {
+                "name": "Jam",
+                "artist": "Phish",
+                "url": "http://phish.in/audio/000/020/579/20579.mp3",
+                "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
+                "date": "2000-06-14"
+            },
+        ]
+        
+        songs_obj = json.dumps(songs)
+        
+        return jsonify(songs_obj)
+        
+    else:
+        songs = []
+        for song in queue_songs:
+            song_info = {
+                "name": song.song_name,
+                "artist": "Phish",
+                "url": song.song_url,
+                "cover_art_url": song.cover_art_url,
+                "date": song.show_date,
+            }
+            songs.append(song_info)
 
-    songs_obj = json.dumps(songs)
+        songs_obj = json.dumps(songs)
 
-    return jsonify(songs_obj)
+        return jsonify(songs_obj)
