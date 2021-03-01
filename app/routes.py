@@ -203,7 +203,7 @@ def check_queue_status():
 @app.route("/addtoqueue", methods=["POST"])
 def add_to_queue():
     try:
-        song = request.values.get("song").title()
+        song = request.values.get("song")
         date = request.values.get("jam_date")
 
         if song and date:
@@ -240,7 +240,7 @@ def add_to_queue():
                 telegram_chat_id=request.values.get("chat_id"),
                 platform=request.values.get("platform"),
                 user_first_name=request.values.get("user_first_name"),
-                song_name=song,
+                song_name=song.title(),
                 song_url=jam_url,
                 cover_art_url=cover_art_url,
                 show_date=date,
