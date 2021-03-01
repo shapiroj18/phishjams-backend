@@ -20,7 +20,7 @@
 {% block body %}
 
 <h2>
-    <i>Phish Radio add songs on telegram bot (add link to bot)</i>
+    <i>Phish Radio</i>
 </h2>
 <div id="single-song-player">
     <img data-amplitude-song-info="cover_art_url"/>
@@ -49,4 +49,12 @@
   <!--Include UX functions JS-->
   <script type="text/javascript" src="{{ url_for('static', filename='js/radio.js') }}"></script>
 
+  <p>
+    <i>
+      Add songs through
+      <a href="https://t.me/{{ telegram_bot_name }}" target="_blank" rel="noopener noreferrer">
+        gone phishing bot
+      </a>
+    </i>
+  </p>
 {% endblock %}

@@ -40,7 +40,7 @@ celery_beat_schedule = {
     },
     "delete_db_queue_records": {
         "task": "delete_queue_records",
-        "schedule": crontab(minute=0, hour=6)
+        "schedule": crontab(minute=0, hour=6),
     },
 }
 

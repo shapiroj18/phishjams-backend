@@ -17,7 +17,9 @@ phishin_api = phishin_api.PhishINAPI()
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template(
+        "index.html", telegram_bot_name=os.getenv("TELEGRAM_BOT_NAME")
+    )
 
 
 @app.route("/japan")
@@ -178,26 +180,25 @@ def unsubscribeemail():
 def successfulunsubscribe():
     return render_template("successful_unsubscribe.html")
 
+
 @app.route("/checkqueuestatus", methods=["POST"])
 def check_queue_status():
-    chat_id = telegram_chat_id=request.values.get("chat_id")
+    chat_id = telegram_chat_id = request.values.get("chat_id")
     number_queued_songs = PhishJamsQueue.query.filter_by(telegram_chat_id=chat_id).all()
     total_songs_list = PhishJamsQueue.query.all()
     if len(number_queued_songs) >= 5:
         return jsonify(
             response="You've reached your maximum queue additions today. You'll be able to add more tomorrow!"
         )
-        
+
     elif len(total_songs_list) >= 200:
         return jsonify(
             response="The playlist is full. You'll be able to add more tomorrow!"
         )
-        
+
     else:
-        return jsonify(
-            response="Maximums not hit"
-        )
-        
+        return jsonify(response="Maximums not hit")
+
 
 @app.route("/addtoqueue", methods=["POST"])
 def add_to_queue():
@@ -263,7 +264,7 @@ def add_to_queue():
 def get_song_info():
 
     queue_songs = PhishJamsQueue.query.all()
-    
+
     if len(queue_songs) == 0:
         songs = [
             {
@@ -271,21 +272,21 @@ def get_song_info():
                 "artist": "Phish",
                 "url": "http://phish.in/audio/000/020/578/20578.mp3",
                 "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
-                "date": "2000-06-14"
+                "date": "2000-06-14",
             },
             {
                 "name": "Jam",
                 "artist": "Phish",
                 "url": "http://phish.in/audio/000/020/579/20579.mp3",
                 "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
-                "date": "2000-06-14"
+                "date": "2000-06-14",
             },
         ]
-        
+
         songs_obj = json.dumps(songs)
-        
+
         return jsonify(songs_obj)
-        
+
     else:
         songs = []
         for song in queue_songs:

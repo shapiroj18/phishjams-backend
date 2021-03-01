@@ -153,6 +153,7 @@ def support_notifications():
 
         db.session.commit()
 
+
 @celery.task(name="delete_queue_records")
 def delete_queue_records():
     """
