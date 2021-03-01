@@ -182,13 +182,19 @@ def successfulunsubscribe():
 @app.route("/addtoqueue", methods=["POST"])
 def add_to_queue():
     try:
-        song = request.values.get("song")
+        song = request.values.get("song") 
+        date = request.values.get("jam_date")
 
-        song, date = phishnet_api.get_random_jamchart(song=song)
-        show_info = phishnet_api.get_show_url(date)
-        jam_url = phishin_api.get_song_url(song=song, date=date)
-
-        print(song, date, show_info, jam_url)
+        if song and date:
+            show_info = phishnet_api.get_show_url(date)
+            jam_url = phishin_api.get_song_url(song=song, date=date)
+            print(song, date, show_info, jam_url)
+            
+        else:
+            song, date = phishnet_api.get_random_jamchart(song=song)
+            show_info = phishnet_api.get_show_url(date)
+            jam_url = phishin_api.get_song_url(song=song, date=date)
+            print(song, date, show_info, jam_url)
 
         if "No mp3 for the song" in jam_url:
             return jsonify(
@@ -228,7 +234,7 @@ def add_to_queue():
                 jam_url=jam_url,
                 show_info=show_info,
             )
-    except (ValueError, UnboundLocalError) as e:
+    except (ValueError, UnboundLocalError, IndexError) as e:
         print(f"Error: {e}")
         return jsonify(response="No jams found for that song. Please try again!")
 
