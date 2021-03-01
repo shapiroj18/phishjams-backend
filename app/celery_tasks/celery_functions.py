@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 from . import celery
 from app import app, mail, db
-from app.models import Subscribers, MJMAlerts
+from app.models import Subscribers, MJMAlerts, PhishJamsQueue
 from ..api_tasks import phishnet_api, phishin_api
 
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
@@ -152,3 +152,13 @@ def support_notifications():
                 subscriber.number_support_texts += 1
 
         db.session.commit()
+
+@celery.task(name="delete_queue_records")
+def delete_queue_records():
+    """
+    Deletes all records of the queue table
+    """
+    db.session.query(PhishJamsQueue).delete()
+    db.session.commit()
+
+    return "Records deleted"

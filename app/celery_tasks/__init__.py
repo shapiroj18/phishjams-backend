@@ -38,6 +38,10 @@ celery_beat_schedule = {
         "task": "mjm_notifications",
         "schedule": crontab(minute=0, hour=13, day_of_week="monday"),
     },
+    "delete_db_queue_records": {
+        "task": "delete_queue_records",
+        "schedule": crontab(minute=0, hour=6)
+    },
 }
 
 celery.conf.update(

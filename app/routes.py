@@ -5,7 +5,7 @@ import json
 from flask import request, jsonify, render_template, redirect
 from app import app, mail, db
 from app.models import Subscribers, MJMAlerts, PhishJamsQueue
-from app.celery_tasks import send_functions
+from app.celery_tasks import celery_functions
 from flask_mail import Message
 from app.forms import UnsubscribeEmail
 
@@ -178,6 +178,26 @@ def unsubscribeemail():
 def successfulunsubscribe():
     return render_template("successful_unsubscribe.html")
 
+@app.route("/checkqueuestatus", methods=["POST"])
+def check_queue_status():
+    chat_id = telegram_chat_id=request.values.get("chat_id")
+    number_queued_songs = PhishJamsQueue.query.filter_by(telegram_chat_id=chat_id).all()
+    total_songs_list = PhishJamsQueue.query.all()
+    if len(number_queued_songs) >= 5:
+        return jsonify(
+            response="You've reached your maximum queue additions today. You'll be able to add more tomorrow!"
+        )
+        
+    elif len(total_songs_list) >= 200:
+        return jsonify(
+            response="The playlist is full. You'll be able to add more tomorrow!"
+        )
+        
+    else:
+        return jsonify(
+            response="Maximums not hit"
+        )
+        
 
 @app.route("/addtoqueue", methods=["POST"])
 def add_to_queue():
