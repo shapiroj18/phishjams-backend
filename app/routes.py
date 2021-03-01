@@ -188,7 +188,7 @@ def check_queue_status():
     total_songs_list = PhishJamsQueue.query.all()
     if len(number_queued_songs) >= 5:
         return jsonify(
-            response="You've reached your maximum queue additions today. You'll be able to add more tomorrow!"
+            response="You've reached your maximum (5) queue additions today. You'll be able to add more tomorrow!"
         )
 
     elif len(total_songs_list) >= 200:
