@@ -102,7 +102,7 @@ def mjm_notifications():
 
             bot.send_message(
                 chat_id=subscriber.telegram_chat_id,
-                text=f"Mystery Jam Monday has been posted!",
+                text=f"Get ready, Mystery Jam Monday is about to be posted!",
                 reply_markup=reply_markup,
             )
 
