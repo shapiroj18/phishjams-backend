@@ -17,7 +17,7 @@ Web App -
   * Local - Uses `ngrok` and local server (see below)
 
 Server - 
-Uses Heroku for Prod and Dev deployments. Uses [cron-job.org](https://cron-job.org/en/) to send API calls such that the server doesn't sleep with Heroku's free tier.
+Uses Heroku for Prod and Dev deployments. Uses [cron-job.org](https://cron-job.org/en/) to send API calls such that the server wakes up for celery jobs.
 
 Commands:
 Simply type `/` into Telegram when you are chatting with the bot or read `main()` of   `app.py`
@@ -36,6 +36,7 @@ Technologies:
 * Flask-Mail with Sendgrid
 * Flask-Migrate
 * Ngrok
+* https://counter.dev/ (website statistics)
 
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
