@@ -232,9 +232,7 @@ def add_to_queue():
             if os.path.exists(path_cover_art):
                 cover_art_url = cover_art_file
             else:
-                cover_art_url = os.path.join(
-                    dir_path, "static/img/livephish_logos/default.jpg"
-                )
+                cover_art_url = "static/img/livephish_logos/default.jpg"
 
             queue_item = PhishJamsQueue(
                 telegram_chat_id=request.values.get("chat_id"),
