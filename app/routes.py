@@ -29,7 +29,7 @@ def radio():
 
 @app.route(f"/{os.getenv('RANDOM_VALUE')}/emailtest")
 def email():
-    return send_functions.email_send_test()
+    return celery_functions.email_send_test()
 
 
 @app.route("/subscribedailyjams", methods=["POST"])

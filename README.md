@@ -44,7 +44,7 @@ Development:
   * Start virtual environment
   * Log in to heroku
   * Store local env variables
-* Run `docker-compose up --build` to start the web server, celery, flower and redis.
+* Run `docker-compose up --build` to start the web server, celery, flower, redis, postgres and execute `flask db upgrad`.
   * Access web server at `http://0.0.0.0:5000/`
   * Access flower at `http://localhost:5555/`
 * You need to start `ngrok` for a local environment. Download from the [website](https://ngrok.com/download) and follow their instructions for getting started. Then run `ngrok http 8443` and copy and paste the https url as a webhook to Telegram, etc (make sure route is included in webhook url)
