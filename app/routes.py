@@ -26,6 +26,10 @@ def index():
 def radio():
     return render_template("japan.html")
 
+@app.route("/mixes")
+def mixes():
+    return render_template("mixes.html")
+
 
 @app.route(f"/{os.getenv('RANDOM_VALUE')}/emailtest")
 def email():
