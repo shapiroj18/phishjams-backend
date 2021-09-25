@@ -21,7 +21,3 @@ def client():
 
     os.close(db_fd)
     os.unlink(app.app.config["DATABASE"])
-
-
-def test_equality():
-    assert 1 == 1

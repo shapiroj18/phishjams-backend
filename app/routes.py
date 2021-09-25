@@ -139,9 +139,15 @@ def unsubscribemjm():
 def get_random_jam():
     try:
         song = request.values.get("song")
+        year = request.values.get("year")
+        
+        if song == "None":
+            song = None
+            
+        if year == "None":
+            year = None
 
-        song, date = phishnet_api.get_random_jamchart(song=song)
-        show_info = phishnet_api.get_show_url(date)
+        song, date, show_info = phishnet_api.get_random_jam(song=song, year=year)
         jam_url = phishin_api.get_song_url(song=song, date=date)
 
         print(song, date, show_info, jam_url)
@@ -160,9 +166,9 @@ def get_random_jam():
                 jam_url=jam_url,
                 show_info=show_info,
             )
-    except (ValueError, UnboundLocalError) as e:
+    except (ValueError, UnboundLocalError, IndexError) as e:
         print(f"Error: {e}")
-        return jsonify(response="No jams found for that song. Please try again!")
+        return jsonify(response="No jams found for that entry")
 
 
 @app.route("/unsubscribeemail", methods=["Get", "POST"])
