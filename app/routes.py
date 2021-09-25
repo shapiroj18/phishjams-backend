@@ -26,6 +26,7 @@ def index():
 def radio():
     return render_template("japan.html")
 
+
 @app.route("/mixes")
 def mixes():
     return render_template("mixes.html")
@@ -140,10 +141,10 @@ def get_random_jam():
     try:
         song = request.values.get("song")
         year = request.values.get("year")
-        
+
         if song == "None":
             song = None
-            
+
         if year == "None":
             year = None
 
