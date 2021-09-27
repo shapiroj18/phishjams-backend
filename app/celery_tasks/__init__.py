@@ -30,10 +30,10 @@ celery_beat_schedule = {
         "task": "daily_email_send",
         "schedule": crontab(minute=0, hour=12),
     },
-    "support_texts": {
-        "task": "support_notifications",
-        "schedule": crontab(minute=0, hour=13, day_of_week="friday"),
-    },
+    # "support_texts": {
+    #     "task": "support_notifications",
+    #     "schedule": crontab(minute=0, hour=13, day_of_week="friday"),
+    # },
     "mjm_text": {
         "task": "mjm_notifications",
         "schedule": crontab(minute=0, hour=13, day_of_week="monday"),
@@ -42,6 +42,10 @@ celery_beat_schedule = {
         "task": "delete_queue_records",
         "schedule": crontab(minute=0, hour=6),
     },
+    # "print_date": {
+    #     "task": "print_date",
+    #     "schedule": crontab(minute='*')
+    # }
 }
 
 celery.conf.update(

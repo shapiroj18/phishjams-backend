@@ -163,3 +163,7 @@ def delete_queue_records():
     db.session.commit()
 
     return "Records deleted"
+
+# @celery.task(name="print_date")
+# def print_date():
+#     print(datetime.datetime.now())
