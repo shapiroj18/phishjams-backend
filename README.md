@@ -19,9 +19,6 @@ Web App -
 Server - 
 Uses Heroku for Prod and Dev deployments. Uses [cron-job.org](https://cron-job.org/en/) to send API calls such that the server wakes up for celery jobs.
 
-Commands:
-Simply type `/` into Telegram when you are chatting with the bot or read `main()` of   `app.py`
-
 Contributing:
 Very much encouraged! Simply submit a PR or reach out to shapiroj18@gmail.com.
 
@@ -31,7 +28,7 @@ Environmental variables are stored as [heroku config vars](https://devcenter.her
 Technologies:
 * Flask
 * PostgreSQL
-* Celery
+* Celery / Flower
 * Redis
 * Flask-Mail with Sendgrid
 * Flask-Migrate
@@ -39,26 +36,19 @@ Technologies:
 * https://counter.dev/ (website statistics)
 
 Development:
-* You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
 * Run `source start-dev-env.sh` to do the following:
   * Start virtual environment
   * Log in to heroku
   * Store local env variables
-* Run `docker-compose up --build` to start the web server, celery, flower, redis, postgres and execute `flask db upgrad`.
-  * Access web server at `http://0.0.0.0:5000/`
+* Make sure docker is running and then run `docker-compose up --build --remove-orphans` to start local microservices. Note that `ngrok` only lasts two hours without an account so you will have to rerun `docker-compose up` once that time limit is up.
+  * Access web server at `http://localhost:5000/`
   * Access flower at `http://localhost:5555/`
-* You need to start `ngrok` for a local environment. Download from the [website](https://ngrok.com/download) and follow their instructions for getting started. Then run `ngrok http 8443` and copy and paste the https url as a webhook to Telegram, etc (make sure route is included in webhook url)
-* Start celery locally with `celery -A app.celery_tasks.celery worker --loglevel=INFO` once you have installed redis (`brew install redis`) and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`). Start celery beat locally with `celery -A app.celery_tasks.celery beat --loglevel=INFO`. You can start both the celery worker and beat with `celery worker -A app.celery_tasks.celery --beat --loglevel=info`. Run `flower` with `flower -A app.celery_tasks.celery --port=5555`
-* Postgres can be installed and run via [this page](https://wiki.postgresql.org/wiki/Homebrew). Make sure your databases are defined in your `.env`.
-  * `psql postgres`
-  * `CREATE DATABASE phishbot_local_dev;`
-  * `\c phishbot_local_dev`
-  * `\du` to list users
-  * `ALTER USER <username> WITH PASSWORD '<password>';`
-  * Connect to postgres with host: `localhost`, port: `5432`, database: `phishbot_local_dev`, username: `username` and password: `password`
-  * See tables with `\dt`
-  * Add `DATABASE_URL=postgresql:///phishbot_local_dev` to your `.env`
-  * `flask db upgrade` to update database with flask models. If this isn't working make sure your `.env` is being imported via `dotenv`.
+  * Access ngrok at `http://localhost:4040/`
+  * Access posgres via `docker exec` or a database client. If using a database client, make sure to show all databases to see `phishbot_local_dev`. For example, in DBeaver, when adding a new posgres database, go to the `PostgreSQL` tab and select `Show all databases`.
+
+Dependencies:
+* [Python3](https://www.python.org/downloads/)
+* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
 
 The environmental variables stored are:
 1. BOT_TOKEN=`bot_token` (token for `@gone_phishing_bot` from BotFather)
@@ -66,8 +56,5 @@ The environmental variables stored are:
 3. URL=`url` (url of heroku app)
 4. PHISHNET_API_KEY=`api_key` (API Key for Phish.Net, [retrieved here](https://api.phish.net/request-key))
 5. PHISHIN_API_KEY=`api_key` (API Key for Phish.in can be requested at the [contacts page](https://phish.in/contact-info) and info about the api can be found in the [api docs](https://phish.in/api-docs))
-
-To Do:
-1.  Add testing
 
 Find my profile on [phish.net](https://phish.net/user/harpua18)!
