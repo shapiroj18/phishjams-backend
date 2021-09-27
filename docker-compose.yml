@@ -12,6 +12,7 @@ services:
   web:
     extends:
       service: base
+    command: flask run
     ports:
       - "5000:5000"
     depends_on:
@@ -22,6 +23,8 @@ services:
   redis:
     image: redis:alpine
     command: redis-server
+    volumes:
+      - .:/usr/src/redis
     ports:
       - "6379:6379"
 
@@ -39,7 +42,9 @@ services:
     extends:
       service: base
     image: mher/flower
-    command: flower --broker=redis://redis:6379/0 --port=5555
+    command: flower --broker=redis://redis:6379/0 --port=5555 --persistent=True
+    volumes:
+      - .:/usr/src/flower
     ports:  
       - 5555:5555 
     depends_on:
@@ -65,8 +70,17 @@ services:
   migration:
     extends:
       service: base
-    build: .
     command: flask db upgrade
     depends_on:
       db:
         condition: service_healthy
+
+  ngrok:
+    extends:
+      service: base
+    image: wernight/ngrok:latest
+    ports:
+    - 4040:4040
+    command: ngrok http web:5000
+    depends_on:
+      - web
