@@ -8,6 +8,7 @@ dump.rdb
 celerybeat*
 logfile*
 celerybeat-schedule.db
+flower
 # .gitignore template below from - https://github.com/github/gitignore/blob/master/Python.gitignore
 
 # Byte-compiled / optimized / DLL files
