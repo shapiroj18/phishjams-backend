@@ -74,13 +74,3 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
-  ngrok:
-    extends:
-      service: base
-    image: wernight/ngrok:latest
-    ports:
-    - 4040:4040
-    command: ngrok http web:5000
-    depends_on:
-      - web
