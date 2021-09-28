@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+## have it start docker compose
+
 # help menu
 Help() {
     echo "Initialize your Phish Bot Environment"
@@ -68,3 +70,16 @@ if [[ $(brew help) ]]; then
 else
     echo 'Install Homebrew if you want fun features at brew.sh'
 fi
+
+# set up ngrok 8443 for telegram webhook
+echo 'Stopping any existing ngrok instances'
+killall ngrok
+echo 'Starting ngrok on port 8443 for telegram bot webhook'
+ngrok http 8443 -log=stdout &
+
+# set environmental variable of APP_URL from ngrok
+URL=$(curl --silent http://localhost:4040/api/tunnels | jq ".tunnels[].public_url" | grep "https:*" | tr -d '"')
+export WEB_URL=$URL/
+
+# turn on docker-compose
+docker-compose up --remove-orphans
