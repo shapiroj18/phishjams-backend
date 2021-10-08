@@ -32,6 +32,7 @@ Technologies:
 * [Flask-Mail](https://pythonhosted.org/Flask-Mail/) / [Sendgrid](https://sendgrid.com/)
 * [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
 * [Counter](https://counter.dev/) (website statistics)
+* [GitHub Actions](https://docs.github.com/en/actions)
 
 Development:
 * Environmental variables are stored in teh `.env.template`. You should copy that to your environment as `.env` and fill in the required variables.
