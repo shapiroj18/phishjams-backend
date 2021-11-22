@@ -35,7 +35,8 @@ Technologies:
 * [GitHub Actions](https://docs.github.com/en/actions)
 
 Development:
-* Environmental variables are stored in teh `.env.template`. You should copy that to your environment as `.env` and fill in the required variables.
+* Environmental variables are stored in the `.env.template`. You should copy that to your environment as `.env` and fill in the required variables.
+* Confirm Docker is running on your machine `docker info`
 * Run `source start-dev-env.sh` to do the following:
   * Start virtual environment
   * Log in to heroku
