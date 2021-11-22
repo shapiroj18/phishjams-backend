@@ -81,7 +81,7 @@ def unsubscribedailyjams():
             db.session.commit()
             return jsonify(message=f"{email} removed successfully")
         else:
-            return jsonify(message=f"{email} did not exist in the databse")
+            return jsonify(message=f"{email} did not exist in the database")
     except TypeError:
         return jsonify(
             message="There was an error, please try again later or reach out to shapiroj18@gmail.com"
@@ -128,7 +128,7 @@ def unsubscribemjm():
             return jsonify(message=f"{chat_id} removed successfully")
 
         else:
-            return jsonify(message=f"{chat_id} did not exist in the databse")
+            return jsonify(message=f"{chat_id} did not exist in the database")
 
     except TypeError:
         return jsonify(
