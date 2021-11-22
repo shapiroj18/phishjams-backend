@@ -20,6 +20,7 @@ class Config(object):
     CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
     SECRET_KEY = os.getenv("SECRET_KEY")
 
+
 class ProductionConfig(Config):
     DEBUG = False
 

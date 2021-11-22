@@ -164,6 +164,7 @@ def delete_queue_records():
 
     return "Records deleted"
 
+
 # @celery.task(name="print_date")
 # def print_date():
 #     print(datetime.datetime.now())
