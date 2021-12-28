@@ -1,0 +1,21 @@
+{% extends 'base_site.html' %}
+
+{% block head %}
+<title>
+    Phish Bot
+</title>
+{% endblock %}
+
+{% block body %}
+    <h1>Unsubscribe</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+        </p>
+        <p>
+            {{ form.submit() }}
+        </p>
+    </form>
+{% endblock %}

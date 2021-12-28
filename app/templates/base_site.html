@@ -2,9 +2,26 @@
 <html lang="en">
     <head>
         <meta charset = "UTF-8">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+        <script>if(!sessionStorage.getItem("_swa")&&document.referrer.indexOf(location.protocol+"//"+location.host)!== 0){fetch("https://counter.dev/track?"+new URLSearchParams({referrer:document.referrer,screen:screen.width+"x"+screen.height,user:"shapiroj18",utcoffset:"-5"}))};sessionStorage.setItem("_swa","1");</script>
         {% block head %}{% endblock %}
     </head>
+    <style>
+        h1 {
+            text-align: center;
+            font-family: verdana;
+        }
+        h2 {
+            text-align: center;
+            font-family: verdana;
+        }
+        p {
+            text-align: center;
+            font-family: verdana;
+        }
+
+    </style>
     <body style="margin: 0; padding: 0;">
         {% block body %}{% endblock %}
     </body>

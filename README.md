@@ -17,7 +17,7 @@ Web App -
   * Local - Uses `ngrok` and local server (see below)
 
 Server - 
-Uses Heroku for Prod and Dev deployments. Uses [cron-job.org](https://cron-job.org/en/) to send API calls such that the server doesn't sleep with Heroku's free tier.
+Uses Heroku for Prod and Dev deployments. Uses [cron-job.org](https://cron-job.org/en/) to send API calls such that the server wakes up for celery jobs.
 
 Commands:
 Simply type `/` into Telegram when you are chatting with the bot or read `main()` of   `app.py`
@@ -33,10 +33,10 @@ Technologies:
 * PostgreSQL
 * Celery
 * Redis
-* Autoenv
-* Flask-Mail
+* Flask-Mail with Sendgrid
 * Flask-Migrate
 * Ngrok
+* https://counter.dev/ (website statistics)
 
 Development:
 * You need [Python3](https://www.python.org/downloads/) and the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) installed.
@@ -47,7 +47,7 @@ Development:
 * Run `docker-compose up --build` to start the web server, celery, flower and redis.
   * Access web server at `http://0.0.0.0:5000/`
   * Access flower at `http://localhost:5555/`
-* You need to start `ngrok` for a local environment. Download from the [website](https://ngrok.com/download) and follow their instructions for getting started. Then run `ngrok http 5000` and copy and paste the https url as a webhook to Twilio, etc (make sure route is included in webhook url)
+* You need to start `ngrok` for a local environment. Download from the [website](https://ngrok.com/download) and follow their instructions for getting started. Then run `ngrok http 8443` and copy and paste the https url as a webhook to Telegram, etc (make sure route is included in webhook url)
 * Start celery locally with `celery -A app.celery_tasks.celery worker --loglevel=INFO` once you have installed redis (`brew install redis`) and started `redis-server`. You can check if the redis server is running with `redis-cli ping` (you should get back `PONG`). Start celery beat locally with `celery -A app.celery_tasks.celery beat --loglevel=INFO`. You can start both the celery worker and beat with `celery worker -A app.celery_tasks.celery --beat --loglevel=info`. Run `flower` with `flower -A app.celery_tasks.celery --port=5555`
 * Postgres can be installed and run via [this page](https://wiki.postgresql.org/wiki/Homebrew). Make sure your databases are defined in your `.env`.
   * `psql postgres`
@@ -68,14 +68,6 @@ The environmental variables stored are:
 5. PHISHIN_API_KEY=`api_key` (API Key for Phish.in can be requested at the [contacts page](https://phish.in/contact-info) and info about the api can be found in the [api docs](https://phish.in/api-docs))
 
 To Do:
-1. Pytest
-2. Mypy
-3. Phish Trivia Game
-4. Next Phish Show (location/date)
-5.  Figure out how to automate `flask db upgrade`
-6.  Tests and incorporate into github actions
-7.  Add email template and phish radio template (when people request ping to a cool-looking graph?) https://ron.sh/creating-real-time-charts-with-flask/
-8.  Create events tables (when messages are sent, when messages are received)
-9.  Better unsubscribe messaging
+1.  Add testing
 
 Find my profile on [phish.net](https://phish.net/user/harpua18)!

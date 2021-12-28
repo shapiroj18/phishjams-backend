@@ -3,8 +3,12 @@ import json
 import random
 import requests
 import httpx
+from dotenv import load_dotenv
+from datetime import datetime
 
-api_key = os.environ.get("PHISHNET_API_KEY")
+load_dotenv()
+
+api_key = os.getenv("PHISHNET_API_KEY")
 
 
 class PhishNetAPI:
@@ -43,29 +47,38 @@ class PhishNetAPI:
 
             return response.json()
 
-    def get_jamchart_song_ids(self):
+    def get_jamchart_song_ids(self, song=None):
         response = self.get_all_jamcharts()
 
-        all_jamchart_songs = []
-        for item in response["response"]["data"]:
-            all_jamchart_songs.append(item["songid"])
+        if song:
+            for item in response["response"]["data"]:
+                if item["song"].lower() == song.lower():
+                    song_ids = [
+                        item["songid"],
+                    ]
+        else:
+            song_ids = []
+            for item in response["response"]["data"]:
+                song_ids.append(item["songid"])
 
-        return all_jamchart_songs
+        return song_ids
 
-    def get_random_jamchart(self):
-        jamchart_songs = self.get_jamchart_song_ids()
-        rand_id = random.choice(jamchart_songs)
+    def get_random_jamchart(self, song=None):
+        jamchart_song_ids = self.get_jamchart_song_ids(song)
 
-        chart = self.get_one_jamchart(rand_id)
+        song_id = random.choice(jamchart_song_ids)
+        chart = self.get_one_jamchart(song_id)
         song = chart["response"]["data"]["song"]
-        entries_count = len(chart["response"]["data"]["entries"])
-        rand_date = chart["response"]["data"]["entries"][
-            random.randrange(entries_count)
-        ]["showdate"]
 
-        return song, rand_date
+        entries_count = len(chart["response"]["data"]["entries"])
+        date = chart["response"]["data"]["entries"][random.randrange(entries_count)][
+            "showdate"
+        ]
+
+        return song, date
 
     def get_show_url(self, date):
+        # handle nonexistant lookups
         phishnet_endpoint = "https://api.phish.net/v3//setlists/get"
 
         with httpx.Client() as client:
