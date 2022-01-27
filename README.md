@@ -12,8 +12,8 @@ Telegram -
   * Local - `@devlocal_gone_phishing_bot`
 
 Web App -
-  * Prod - `https://phishjam-bot.herokuapp.com/`
-  * Dev - `https://phishjam-bot-dev.herokuapp.com/`
+  * Prod - `https://phishjams.herokuapp.com/`
+  * Dev - `https://phishjams-dev.herokuapp.com/`
   * Local - Uses `ngrok` and local server (established as a part of the dev startup script)
 
 Server - 
