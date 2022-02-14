@@ -36,7 +36,7 @@ Technologies:
 
 Development:
 * Environmental variables are stored in the `.env.template`. You should copy that to your environment as `.env` and fill in the required variables.
-* Confirm Docker is running on your machine `docker info`
+* Confirm Docker is running on your machine `docker info` and ports are cleared (`docker ps`)
 * Run `source start-dev-env.sh` to do the following:
   * Start virtual environment
   * Log in to heroku

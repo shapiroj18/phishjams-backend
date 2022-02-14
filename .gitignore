@@ -9,6 +9,7 @@ celerybeat*
 logfile*
 celerybeat-schedule.db
 flower
+postgres-data/
 # .gitignore template below from - https://github.com/github/gitignore/blob/master/Python.gitignore
 
 # Byte-compiled / optimized / DLL files
