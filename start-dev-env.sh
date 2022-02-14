@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-## have it start docker compose
+# set initial variables
+build=0
 
 # help menu
 Help() {
@@ -8,6 +9,7 @@ Help() {
     echo
     echo "Syntax: source start-dev-env.sh [-l|d|p]"
     echo "options:"
+    echo "-b|--build       Docker compose up with --build flag."
     echo "-l|--local       Export local variables."
     echo "-d|--dev         Export development variables."
     echo "-p|--prod        Export production variables."
@@ -21,6 +23,10 @@ do
         -h|--help)
         Help
         return
+        ;;
+        -b|--build)
+        build=1
+        shift
         ;;
         -l|--local)
         echo "Local environmental variables loaded from .env file"
@@ -81,5 +87,9 @@ ngrok http 8443 -log=stdout &
 URL=$(curl --silent http://localhost:4040/api/tunnels | jq ".tunnels[].public_url" | grep "https:*" | tr -d '"')
 export WEB_URL=$URL/
 
-# turn on docker-compose
-docker-compose up --remove-orphans
+if [[ "$build" == 1 ]];
+then
+    docker-compose up --remove-orphans --build
+else
+    docker-compose up --remove-orphans
+fi
