@@ -39,6 +39,30 @@ def email():
 
 @app.route("/subscribedailyjams", methods=["POST"])
 def subscribedailyjams():
+    """Endpoint that allows a user to subscribe an email to a random daily jam
+    ---
+    produces:
+      - application/json
+    parameters:
+      - name: email
+        in: path
+        description: Email to be subscribed
+        required: true
+        type: string
+      - name: platform
+        in: path
+        description: Platform the request is coming from
+        required: true
+        type: string
+      - name: chat_id
+        in: path
+        description: Chat ID of requestor
+        required: true
+        type: string
+    responses:
+      200:
+        description: Email successfully subscribed
+    """
     try:
         email = request.values.get("email").lower()
         platform = request.values.get("platform").lower()
