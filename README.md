@@ -31,6 +31,7 @@ Technologies:
 * [Ngrok](https://ngrok.com/)
 * [Flask-Mail](https://pythonhosted.org/Flask-Mail/) / [Sendgrid](https://sendgrid.com/)
 * [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
+* [Flasgger](https://github.com/flasgger/flasgger)
 * [Counter](https://counter.dev/) (website statistics)
 * [GitHub Actions](https://docs.github.com/en/actions)
 
@@ -44,6 +45,7 @@ Development:
   * Start `docker-compose` 
 * Then you will be able to:
   * Access the web server at `http://localhost:5000/`
+  * Access API docs at `http://localhost:5000/apidocs`
   * Access flower at `http://localhost:5555/`
   * Access ngrok at `http://localhost:4040/`
   * Access posgres via `docker exec` or a database client. If using a database client, make sure to show all databases to see `phishbot_local_dev`. For example, in DBeaver, when adding a new posgres database, go to the `PostgreSQL` tab and select `Show all databases`.
