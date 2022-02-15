@@ -48,7 +48,7 @@ Development:
   * Access API docs at `http://localhost:5000/apidocs`
   * Access flower at `http://localhost:5555/`
   * Access ngrok at `http://localhost:4040/`
-  * Access posgres via `docker exec` or a database client. If using a database client, make sure to show all databases to see `phishbot_local_dev`. For example, in DBeaver, when adding a new posgres database, go to the `PostgreSQL` tab and select `Show all databases`.
+  * Access posgres via `docker exec` or a database client. If using a database client, make sure to show all databases to see `phishbot_local_dev`. For example, in DBeaver, when adding a new posgres database, go to the `PostgreSQL` tab and select `Show all databases`. Once the connection has been created, make sure the correct database is selected by right clicking and choosing "Set as default."
 
 Dependencies:
 * [Python3](https://www.python.org/downloads/)
