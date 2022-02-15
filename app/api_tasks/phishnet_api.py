@@ -69,3 +69,18 @@ class PhishNetAPI:
         show_info = random_entry["permalink"]
 
         return song, date, show_info
+    
+    def get_specific_jam(self, song, date):
+        
+        jams = []
+
+        jamcharts = self.get_all_jamcharts()["data"]
+        for entry in jamcharts:
+            if entry["song"].lower() == song.lower() and entry['showdate'] == date:
+                jams.append(entry)
+                
+        if len(jams) != 1:
+            raise ValueError('More than one jam found')
+        else:
+            show_info = jams[0]['permalink']
+            return song, date, show_info
