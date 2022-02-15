@@ -68,6 +68,10 @@ def subscribedailyjams():
         platform = request.values.get("platform").lower()
         chat_id = request.values.get("chat_id")
         sub = Subscribers.query.filter_by(email=email).first()
+        
+        if not email:
+            return jsonify(message=f"No email provided"), 422
+        
         if sub:
             sub.subscribed = True
             sub.number_support_texts = 0
@@ -118,6 +122,11 @@ def subscribemjm():
         platform = request.values.get("platform").lower()
         chat_id = request.values.get("chat_id")
         sub = MJMAlerts.query.filter_by(telegram_chat_id=chat_id).first()
+        
+        if not chat_id:
+            print('got it!')
+            return jsonify(message=f"No chat id provided"), 422
+        
         if sub:
             sub.mjm_alerts = True
             db.session.commit()
@@ -218,7 +227,7 @@ def successfulunsubscribe():
 
 @app.route("/checkqueuestatus", methods=["POST"])
 def check_queue_status():
-    chat_id = telegram_chat_id = request.values.get("chat_id")
+    chat_id = request.values.get("chat_id")
     number_queued_songs = PhishJamsQueue.query.filter_by(telegram_chat_id=chat_id).all()
     total_songs_list = PhishJamsQueue.query.all()
     if len(number_queued_songs) >= 5:
@@ -242,12 +251,13 @@ def add_to_queue():
         date = request.values.get("jam_date")
 
         if song and date:
-            show_info = phishnet_api.get_show_url(date)
+            song, date, show_info = phishnet_api.get_specific_jam(song=song, date=date)
             jam_url = phishin_api.get_song_url(song=song, date=date)
             print(song, date, show_info, jam_url)
 
         else:
-            song, date = phishnet_api.get_random_jamchart(song=song)
+            song, date = phishnet_api.get_random_jam(song=song)
+            print(song, date)
             show_info = phishnet_api.get_show_url(date)
             jam_url = phishin_api.get_song_url(song=song, date=date)
             print(song, date, show_info, jam_url)
