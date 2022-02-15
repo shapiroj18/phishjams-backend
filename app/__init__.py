@@ -11,7 +11,7 @@ load_dotenv()
 app = Flask(__name__)
 app.config.from_object(os.getenv("APP_SETTINGS"))
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 swagger = Swagger(app)
 mail = Mail(app)
 
