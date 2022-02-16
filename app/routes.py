@@ -256,9 +256,7 @@ def add_to_queue():
             print(song, date, show_info, jam_url)
 
         else:
-            song, date = phishnet_api.get_random_jam(song=song)
-            print(song, date)
-            show_info = phishnet_api.get_show_url(date)
+            song, date, show_info = phishnet_api.get_random_jam()
             jam_url = phishin_api.get_song_url(song=song, date=date)
             print(song, date, show_info, jam_url)
 
