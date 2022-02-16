@@ -19,6 +19,7 @@ decorator==4.4.2
 flake8==3.8.4
 flasgger==0.9.5
 Flask==1.1.2
+Flask-Cors==3.0.10
 Flask-Mail==0.9.1
 Flask-Migrate==2.5.3
 Flask-SQLAlchemy==2.4.4
