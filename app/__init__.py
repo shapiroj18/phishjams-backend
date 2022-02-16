@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 from flask_mail import Mail
 from dotenv import load_dotenv
 from flasgger import Swagger
-from flask_cors import CORS
 
 load_dotenv()
 
@@ -15,7 +14,6 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db, compare_type=True)
 swagger = Swagger(app)
 mail = Mail(app)
-CORS(app)
 
 from app import routes, models
 

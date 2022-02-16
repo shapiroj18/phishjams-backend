@@ -8,6 +8,7 @@ from app.models import Subscribers, MJMAlerts, PhishJamsQueue
 from app.celery_tasks import celery_functions
 from flask_mail import Message
 from app.forms import UnsubscribeEmail
+from flask_cors import cross_origin
 
 from app.api_tasks import phishnet_api, phishin_api
 
@@ -302,6 +303,7 @@ def add_to_queue():
 
 
 @app.route("/get_song_info", methods=["GET"])
+@cross_origin()
 def get_song_info():
 
     queue_songs = PhishJamsQueue.query.all()
