@@ -11,6 +11,7 @@ from app.forms import UnsubscribeEmail
 from flask_cors import cross_origin
 
 from app.api_tasks import phishnet_api, phishin_api
+from app.utils.str_casing import titlecase
 
 phishnet_api = phishnet_api.PhishNetAPI()
 phishin_api = phishin_api.PhishINAPI()
@@ -282,7 +283,7 @@ def add_to_queue():
                 telegram_chat_id=request.values.get("chat_id"),
                 platform=request.values.get("platform"),
                 user_first_name=request.values.get("user_first_name"),
-                song_name=song.title(),
+                song_name=titlecase(song),
                 song_url=jam_url,
                 cover_art_url=cover_art_url,
                 show_date=date,
