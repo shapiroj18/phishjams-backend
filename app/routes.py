@@ -2,7 +2,7 @@ import re
 import os
 import json
 
-from flask import request, jsonify, render_template, redirect
+from flask import request, jsonify, render_template, redirect, send_file
 from app import app, mail, db
 from app.models import Subscribers, MJMAlerts, PhishJamsQueue
 from app.celery_tasks import celery_functions
@@ -315,14 +315,12 @@ def get_song_info():
                 "name": "Twist",
                 "artist": "Phish",
                 "url": "http://phish.in/audio/000/020/578/20578.mp3",
-                "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
                 "date": "2000-06-14",
             },
             {
                 "name": "Jam",
                 "artist": "Phish",
                 "url": "http://phish.in/audio/000/020/579/20579.mp3",
-                "cover_art_url": "static/img/livephish_logos/2000-06-14.jpg",
                 "date": "2000-06-14",
             },
         ]
@@ -338,7 +336,6 @@ def get_song_info():
                 "name": song.song_name,
                 "artist": "Phish",
                 "url": song.song_url,
-                "cover_art_url": song.cover_art_url,
                 "date": song.show_date,
             }
             songs.append(song_info)
@@ -346,3 +343,22 @@ def get_song_info():
         songs_obj = json.dumps(songs)
 
         return jsonify(songs_obj)
+
+@app.route("/get_album_art", methods=["GET"])
+@cross_origin()
+def get_album_art():
+    
+    song_date = request.values.get("song_date")
+    if not song_date:
+        return jsonify(response="song_date must be provided as parameter"), 422
+    date_check = re.match(r"\d\d\d\d-\d\d-\d\d", song_date)
+    print(date_check, flush=True)
+    if not date_check:
+        return jsonify(response="Incorrect date format"), 422
+    else:
+        coverart_file = f'app/static/img/livephish_logos/{song_date}.jpg'
+        local_coverart_file_check = os.path.exists(coverart_file)
+        if local_coverart_file_check:
+            return send_file(f'static/img/livephish_logos/{song_date}.jpg'), 200
+        else:
+            return jsonify(response="No cover art found"), 404
