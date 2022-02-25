@@ -84,3 +84,18 @@ class PhishNetAPI:
         else:
             show_info = jams[0]['permalink']
             return song, date, show_info
+        
+    def get_show_dates_list(self):
+        phishnet_endpoint = "https://api.phish.net/v5/shows"
+
+        with httpx.Client() as client:
+            payload = {"apikey": api_key}
+            response = client.get(url=phishnet_endpoint, params=payload)
+            
+            all_shows_list = []
+            for show in response.json()['data']:
+                if show['artistid'] == '1':
+                    all_shows_list.append(show['showdate'])
+                
+
+            return all_shows_list

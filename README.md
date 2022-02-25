@@ -67,6 +67,13 @@ Additional Notes:
   ```
   docker-compose exec web flask db migrate -m '<migration message>'
   ``` 
+* There is an ad-hoc script for seeing which album covers by show date are missing. In order to run it:
+1. Open the root of this project
+2. If you have a virtual environment already started with this project, just make sure that is activated. Otherwise, start a new one and `pip install -r requirements.txt`. It also accesses Phish.Net's API, so make sure your `.env` file is has that token (see environmental variables above).
+3. `cd app/scripts`
+4. `python check_cover_art_diff.py` 
+
+This will print the shows missing from `/app/static/img/livephish_logos` to `stdout`.
 
 ## Contributing:
 Very much encouraged! Simply submit a PR or reach out to shapiroj18@gmail.com.
